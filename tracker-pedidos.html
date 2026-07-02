@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Pedidos — El Buen Poll</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --verde:      #4A6741;
+  --verde-dim:  #2E4228;
+  --verde-18:   #4A674118;
+  --verde-30:   #4A674130;
+  --dorado:     #C8A84B;
+  --dorado-18:  #C8A84B18;
+  --dorado-30:  #C8A84B30;
+  --crema:      #F2EDD7;
+  --bg:         #F7F3E3;
+  --bg2:        #EEE8D0;
+  --bg3:        #E5DFC0;
+  --texto:      #2A2416;
+  --texto-dim:  #7A6E50;
+  --borde:      #D4CCAA;
+  --rojo:       #8B2020;
+  --rojo-bg:    #FFF0F0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--texto);
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* ══ HEADER ══ */
+.app-header {
+  background: var(--verde-dim);
+  border-bottom: 3px solid var(--dorado);
+  padding: 14px 16px 12px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 8px #00000022;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.header-logo { display: flex; align-items: center; gap: 10px; }
+.header-logo .ico {
+  width: 36px; height: 36px;
+  background: var(--dorado);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.header-logo .titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px; font-weight: 700;
+  color: var(--crema); line-height: 1.1; display: block;
+}
+.header-logo .sub {
+  font-size: 10px; color: var(--dorado);
+  letter-spacing: .12em; text-transform: uppercase; display: block; margin-top: 2px;
+}
+
+.btn-nuevo {
+  background: var(--dorado);
+  color: var(--verde-dim);
+  border: none; border-radius: 20px;
+  padding: 8px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* FILTROS */
+.filtros {
+  display: flex; gap: 8px;
+  overflow-x: auto; padding-bottom: 2px;
+  scrollbar-width: none;
+}
+.filtros::-webkit-scrollbar { display: none; }
+
+.filtro-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.8);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; font-weight: 500;
+  padding: 5px 14px; border-radius: 16px;
+  cursor: pointer; white-space: nowrap;
+  transition: all .15s;
+}
+.filtro-btn.active {
+  background: var(--dorado);
+  color: var(--verde-dim);
+  border-color: var(--dorado);
+  font-weight: 700;
+}
+
+/* ══ STATS ══ */
+.stats-bar {
+  display: flex; gap: 0;
+  background: var(--crema);
+  border-bottom: 2px solid var(--borde);
+}
+.stat {
+  flex: 1; padding: 12px 8px;
+  text-align: center;
+  border-right: 1px solid var(--borde);
+}
+.stat:last-child { border-right: none; }
+.stat .n { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; line-height: 1; display: block; }
+.stat .l { font-size: 10px; color: var(--texto-dim); letter-spacing: .06em; text-transform: uppercase; margin-top: 3px; display: block; }
+.stat.s-total .n     { color: var(--texto); }
+.stat.s-pendiente .n { color: var(--dorado); }
+.stat.s-entregado .n { color: var(--verde); }
+
+/* ══ LISTA ══ */
+.lista { padding: 14px 14px; display: flex; flex-direction: column; gap: 12px; }
+
+.empty-state { text-align: center; padding: 60px 20px; color: var(--texto-dim); }
+.empty-state .e-ico { font-size: 52px; margin-bottom: 14px; opacity: .35; display: block; }
+.empty-state p { font-size: 14px; line-height: 1.7; }
+.empty-state small { font-size: 12px; opacity: .6; }
+
+/* ══ TARJETA DE PEDIDO ══ */
+.pedido-card {
+  background: white;
+  border: 1.5px solid var(--borde);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px #2A241608;
+  transition: box-shadow .2s;
+}
+.pedido-card.pendiente { border-left: 4px solid var(--dorado); }
+.pedido-card.entregado { border-left: 4px solid var(--verde); opacity: .78; }
+.pedido-card.cancelado { border-left: 4px solid var(--rojo); opacity: .6; }
+
+.pedido-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px 9px;
+  border-bottom: 1px solid var(--borde);
+  background: var(--bg);
+  gap: 8px;
+}
+.pedido-folio {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px; font-weight: 700; color: var(--texto);
+}
+.pedido-fecha { font-size: 11px; color: var(--texto-dim); }
+.pedido-canal {
+  font-size: 10px; color: var(--verde); background: var(--verde-18);
+  border: 1px solid var(--verde-30); padding: 2px 8px; border-radius: 10px;
+  font-weight: 600; flex-shrink: 0;
+}
+
+.estado-badge {
+  font-size: 11px; font-weight: 700;
+  padding: 4px 10px; border-radius: 12px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.estado-badge.pendiente { background: var(--dorado-18); color: #6B5300; border: 1px solid var(--dorado-30); }
+.estado-badge.entregado { background: var(--verde-18); color: var(--verde-dim); border: 1px solid var(--verde-30); }
+.estado-badge.cancelado { background: var(--rojo-bg); color: var(--rojo); border: 1px solid #FFCCCC; }
+
+.pedido-body { padding: 10px 14px; }
+.pedido-cliente {
+  font-size: 13.5px; font-weight: 600; color: var(--texto);
+  margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
+}
+.pedido-items { font-size: 12px; color: var(--texto-dim); line-height: 1.8; margin-bottom: 6px; }
+.pedido-items .prod-item { display: flex; align-items: baseline; gap: 5px; }
+.pedido-items .prod-item::before { content: '•'; color: var(--dorado); flex-shrink: 0; font-size: 14px; line-height: 1; }
+.pedido-notas {
+  font-size: 11.5px; color: var(--texto-dim); font-style: italic;
+  background: var(--bg2); border-radius: 6px; padding: 6px 10px;
+  margin-top: 6px; line-height: 1.5;
+}
+
+/* ══ ACCIONES ══ */
+.pedido-acciones {
+  display: flex; gap: 8px;
+  padding: 10px 14px 12px;
+  border-top: 1px solid var(--borde);
+  flex-wrap: wrap; background: var(--bg);
+}
+
+.btn-accion {
+  flex: 1; min-width: 90px; padding: 8px 10px;
+  border-radius: 8px; border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; font-weight: 600;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  transition: all .15s;
+}
+.btn-entregar { background: var(--verde-18); color: var(--verde-dim); border: 1px solid var(--verde-30); }
+.btn-entregar:hover { background: var(--verde-30); }
+.btn-cancelar { background: var(--rojo-bg); color: var(--rojo); border: 1px solid #FFCCCC; }
+.btn-cancelar:hover { background: #FFCCCC; }
+.btn-wa { background: var(--dorado-18); color: #6B5300; border: 1px solid var(--dorado-30); }
+.btn-wa:hover { background: var(--dorado-30); }
+.btn-reabrir { background: var(--bg2); color: var(--texto-dim); border: 1px solid var(--borde); }
+.btn-reabrir:hover { background: var(--bg3); }
+.btn-del { background: none; border: none; color: var(--borde); cursor: pointer; font-size: 18px; flex: 0; min-width: auto; padding: 8px 6px; }
+.btn-del:hover { color: var(--rojo); }
+
+/* ══ MODAL EDITAR NOMBRE/NOTAS ══ */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: #2A241666;
+  z-index: 200; display: none;
+  align-items: flex-end;
+}
+.modal-overlay.abierto { display: flex; }
+
+.modal-sheet {
+  background: white;
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-height: 80vh;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  animation: slideUp .3s ease;
+}
+@keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+
+.modal-drag { width: 40px; height: 4px; background: var(--borde); border-radius: 2px; margin: 12px auto 0; }
+.modal-header { padding: 14px 18px; border-bottom: 1px solid var(--borde); display: flex; align-items: center; justify-content: space-between; }
+.modal-header h3 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; }
+.modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--texto-dim); }
+.modal-body { flex: 1; overflow-y: auto; padding: 16px 18px; display: flex; flex-direction: column; gap: 14px; }
+
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+.form-field label { font-size: 11px; font-weight: 600; color: var(--texto-dim); letter-spacing: .1em; text-transform: uppercase; }
+.form-input {
+  background: var(--bg);
+  border: 1.5px solid var(--borde);
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; color: var(--texto);
+  outline: none; transition: border-color .15s; width: 100%;
+}
+.form-input:focus { border-color: var(--verde); background: white; }
+.form-input::placeholder { color: #BBB; }
+textarea.form-input { resize: vertical; min-height: 70px; line-height: 1.6; }
+
+.modal-footer { padding: 14px 18px; border-top: 1px solid var(--borde); display: flex; gap: 10px; }
+.btn-guardar {
+  flex: 1; background: var(--verde-dim); color: var(--crema);
+  border: none; border-radius: 10px; padding: 13px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer;
+}
+.btn-guardar:hover { background: var(--verde); }
+.btn-cancelar-modal {
+  background: var(--bg2); border: 1.5px solid var(--borde);
+  border-radius: 10px; padding: 13px 16px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--texto-dim); cursor: pointer;
+}
+
+/* BADGE NUEVO */
+.badge-nuevo {
+  background: var(--rojo); color: white;
+  font-size: 10px; font-weight: 700;
+  padding: 2px 7px; border-radius: 10px;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+/* ══ FAB ══ */
+.fab {
+  position: fixed; bottom: 24px; right: 18px;
+  background: var(--verde-dim);
+  border: 2px solid var(--dorado);
+  color: var(--crema);
+  border-radius: 28px; padding: 13px 20px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+  cursor: pointer; display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 6px 20px #2E422840; transition: all .2s; z-index: 100;
+}
+.fab:hover { background: var(--verde); transform: translateY(-2px); }
+
+/* ══ TOAST ══ */
+.toast {
+  position: fixed; bottom: 88px; left: 50%;
+  transform: translateX(-50%) translateY(14px);
+  background: var(--verde-dim); color: var(--crema);
+  padding: 10px 20px; border-radius: 20px;
+  font-size: 13px; font-weight: 500; opacity: 0;
+  transition: all .3s; pointer-events: none; z-index: 300;
+  white-space: nowrap; border: 1px solid var(--dorado-30);
+}
+.toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ══ NOTIFICACIÓN NUEVOS PEDIDOS ══ */
+.banner-nuevos {
+  background: var(--dorado-18); border-bottom: 1px solid var(--dorado-30);
+  padding: 10px 16px; display: none;
+  align-items: center; justify-content: space-between; gap: 10px;
+}
+.banner-nuevos.visible { display: flex; }
+.banner-nuevos p { font-size: 13px; color: #6B5300; font-weight: 500; }
+.banner-btn { background: var(--dorado); color: var(--verde-dim); border: none; border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="app-header">
+  <div class="header-top">
+    <div class="header-logo">
+      <div class="ico">🐓</div>
+      <div>
+        <span class="titulo">Pedidos</span>
+        <span class="sub">El Buen Poll · Vendedor</span>
+      </div>
+    </div>
+    <button class="btn-nuevo" onclick="abrirModal()">+ Manual</button>
+  </div>
+  <div class="filtros">
+    <button class="filtro-btn active" onclick="filtrar('todos',this)">📋 Todos</button>
+    <button class="filtro-btn" onclick="filtrar('pendiente',this)">⏳ Pendientes</button>
+    <button class="filtro-btn" onclick="filtrar('entregado',this)">✅ Entregados</button>
+    <button class="filtro-btn" onclick="filtrar('cancelado',this)">❌ Cancelados</button>
+  </div>
+</div>
+
+<!-- BANNER NUEVOS PEDIDOS -->
+<div class="banner-nuevos" id="bannerNuevos">
+  <p id="bannerTxt">🛒 Hay pedidos nuevos del asesor IA</p>
+  <button class="banner-btn" onclick="cerrarBanner()">Ver ↓</button>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat s-total">
+    <span class="n" id="statTotal">0</span>
+    <span class="l">Total</span>
+  </div>
+  <div class="stat s-pendiente">
+    <span class="n" id="statPend">0</span>
+    <span class="l">Pendientes</span>
+  </div>
+  <div class="stat s-entregado">
+    <span class="n" id="statEntr">0</span>
+    <span class="l">Entregados</span>
+  </div>
+</div>
+
+<!-- LISTA -->
+<div class="lista" id="listaPedidos"></div>
+
+<!-- FAB -->
+<button class="fab" onclick="abrirModal()">+ Nuevo pedido</button>
+
+<!-- MODAL EDITAR / NUEVO PEDIDO -->
+<div class="modal-overlay" id="modalOverlay" onclick="cerrarSiOverlay(event)">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-drag"></div>
+    <div class="modal-header">
+      <h3 id="modalTit">Nuevo pedido</h3>
+      <button class="modal-close" onclick="cerrarModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="fId">
+      <div class="form-field">
+        <label>Nombre del cliente <span style="color:#C62828">*</span></label>
+        <input class="form-input" id="fCliente" placeholder="¿Cómo se llama?" type="text">
+      </div>
+      <div class="form-field">
+        <label>Teléfono / WhatsApp</label>
+        <input class="form-input" id="fTel" placeholder="55 1234 5678" type="tel">
+      </div>
+      <div class="form-field">
+        <label>Notas del pedido</label>
+        <textarea class="form-input" id="fNotas" placeholder="Productos, colores específicos, instrucciones especiales..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancelar-modal" onclick="cerrarModal()">Cancelar</button>
+      <button class="btn-guardar" onclick="guardarDesdeModal()">💾 Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════
+//  CONFIG
+// ══════════════════════════════════════════
+const WA_VEND    = "525516478491";
+const NEGOCIO    = "Botánica El Buen Poll";
+const STORAGE    = "buenpoll_pedidos";   // ← misma key que el asesor index.html
+const SEEN_KEY   = "buenpoll_vistos";    // para detectar pedidos nuevos
+
+// ══════════════════════════════════════════
+//  ESTADO
+// ══════════════════════════════════════════
+let pedidos      = [];
+let filtroActual = 'todos';
+let vistos       = [];
+
+// ══════════════════════════════════════════
+//  PERSISTENCIA — misma localStorage que el asesor
+// ══════════════════════════════════════════
+function leerPedidos() {
+  try { return JSON.parse(localStorage.getItem(STORAGE) || '[]'); } catch(e) { return []; }
+}
+function leerVistos() {
+  try { return JSON.parse(localStorage.getItem(SEEN_KEY) || '[]'); } catch(e) { return []; }
+}
+function guardar() {
+  localStorage.setItem(STORAGE, JSON.stringify(pedidos));
+}
+function marcarVistos() {
+  const ids = pedidos.map(p=>p.id);
+  localStorage.setItem(SEEN_KEY, JSON.stringify(ids));
+  vistos = ids;
+}
+
+// ══════════════════════════════════════════
+//  DETECTAR PEDIDOS NUEVOS DEL ASESOR
+// ══════════════════════════════════════════
+function detectarNuevos() {
+  vistos = leerVistos();
+  const nuevos = pedidos.filter(p => !vistos.includes(p.id) && p.canal === 'Asesor IA');
+  if (nuevos.length > 0) {
+    const txt = nuevos.length === 1
+      ? `🛒 Llegó 1 pedido nuevo del Asesor IA`
+      : `🛒 Llegaron ${nuevos.length} pedidos nuevos del Asesor IA`;
+    document.getElementById('bannerTxt').textContent = txt;
+    document.getElementById('bannerNuevos').classList.add('visible');
+  }
+}
+
+function cerrarBanner() {
+  document.getElementById('bannerNuevos').classList.remove('visible');
+  marcarVistos();
+}
+
+// ══════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════
+function render() {
+  actualizarStats();
+  const cont = document.getElementById('listaPedidos');
+  const lista = filtroActual === 'todos'
+    ? [...pedidos].reverse()
+    : [...pedidos].filter(p=>p.estado===filtroActual).reverse();
+
+  if (lista.length === 0) {
+    cont.innerHTML = `
+      <div class="empty-state">
+        <span class="e-ico">🐓</span>
+        <p>${filtroActual==='todos'
+            ? 'Aún no hay pedidos.<br>Cuando un cliente use el Asesor IA<br>y envíe su lista, aparecerá aquí automáticamente.'
+            : 'No hay pedidos en esta categoría.'}</p>
+        <small style="margin-top:8px;display:block">También puedes agregar pedidos manuales con "+ Nuevo pedido"</small>
+      </div>`;
+    return;
+  }
+
+  cont.innerHTML = lista.map(p => renderCard(p)).join('');
+}
+
+function renderCard(p) {
+  const esNuevo = !vistos.includes(p.id) && p.canal === 'Asesor IA';
+  const items   = (p.items||[]).map(i =>
+    `<div class="prod-item">${i.nombre}${(i.cantidad||1)>1 ? ` × ${i.cantidad}` : ''}${i.categoria ? ` <span style="color:#BBB;font-size:10px">· ${i.categoria}</span>` : ''}</div>`
+  ).join('');
+
+  const estadoLabel = {pendiente:'⏳ Pendiente', entregado:'✅ Entregado', cancelado:'❌ Cancelado'}[p.estado];
+
+  const acciones = p.estado === 'pendiente' ? `
+    <button class="btn-accion btn-entregar" onclick="cambiarEstado('${p.id}','entregado')">✅ Entregado</button>
+    <button class="btn-accion btn-wa" onclick="enviarWA('${p.id}')">💬 WA</button>
+    <button class="btn-accion btn-cancelar" onclick="cambiarEstado('${p.id}','cancelado')">❌</button>
+    <button class="btn-accion btn-del" onclick="eliminar('${p.id}')">🗑️</button>
+  ` : p.estado === 'entregado' ? `
+    <button class="btn-accion btn-reabrir" onclick="cambiarEstado('${p.id}','pendiente')">↩️ Reabrir</button>
+    <button class="btn-accion btn-wa" onclick="enviarWA('${p.id}')">💬 WA</button>
+    <button class="btn-accion btn-del" onclick="eliminar('${p.id}')">🗑️</button>
+  ` : `
+    <button class="btn-accion btn-reabrir" onclick="cambiarEstado('${p.id}','pendiente')">↩️ Reabrir</button>
+    <button class="btn-accion btn-del" onclick="eliminar('${p.id}')">🗑️</button>
+  `;
+
+  return `
+    <div class="pedido-card ${p.estado}" id="card-${p.id}">
+      <div class="pedido-header">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span class="pedido-folio">${p.folio}</span>
+          <span class="pedido-fecha">${p.fecha}</span>
+          ${p.canal ? `<span class="pedido-canal">${p.canal}</span>` : ''}
+          ${esNuevo ? `<span class="badge-nuevo">NUEVO</span>` : ''}
+        </div>
+        <span class="estado-badge ${p.estado}">${estadoLabel}</span>
+      </div>
+      <div class="pedido-body">
+        <div class="pedido-cliente">
+          👤 ${p.cliente}
+          ${p.tel ? `<span style="font-size:11px;color:var(--texto-dim);font-weight:400">· ${p.tel}</span>` : ''}
+          <button onclick="abrirModal('${p.id}')" style="background:none;border:none;color:var(--texto-dim);cursor:pointer;font-size:12px;padding:0 4px;margin-left:4px" title="Editar">✏️</button>
+        </div>
+        ${items ? `<div class="pedido-items">${items}</div>` : '<div style="font-size:12px;color:var(--borde);font-style:italic">Sin detalle de productos — ver WhatsApp</div>'}
+        ${p.notas ? `<div class="pedido-notas">📝 ${p.notas}</div>` : ''}
+      </div>
+      <div class="pedido-acciones">${acciones}</div>
+    </div>`;
+}
+
+function actualizarStats() {
+  document.getElementById('statTotal').textContent = pedidos.length;
+  document.getElementById('statPend').textContent  = pedidos.filter(p=>p.estado==='pendiente').length;
+  document.getElementById('statEntr').textContent  = pedidos.filter(p=>p.estado==='entregado').length;
+}
+
+// ══════════════════════════════════════════
+//  ACCIONES SOBRE PEDIDOS
+// ══════════════════════════════════════════
+function cambiarEstado(id, estado) {
+  const p = pedidos.find(x=>x.id===id); if(!p) return;
+  p.estado = estado;
+  if (estado==='entregado') p.fechaEntrega = new Date().toLocaleDateString('es-MX');
+  guardar(); render();
+  const msg = {entregado:'✅ Marcado como entregado', pendiente:'↩️ Pedido reabierto', cancelado:'❌ Pedido cancelado'};
+  toast(msg[estado]);
+}
+
+function eliminar(id) {
+  if(!confirm('¿Eliminar este pedido?')) return;
+  pedidos = pedidos.filter(p=>p.id!==id);
+  guardar(); render();
+  toast('🗑️ Pedido eliminado');
+}
+
+function enviarWA(id) {
+  const p = pedidos.find(x=>x.id===id); if(!p) return;
+  const items = (p.items||[]).map(i=>`• ${i.nombre}${(i.cantidad||1)>1?` × ${i.cantidad}`:''}`).join('\n');
+  const estadoEmoji = p.estado==='entregado' ? '✅ ENTREGADO' : '⏳ PENDIENTE';
+  const msg =
+    `🛒 *PEDIDO ${p.folio} — ${estadoEmoji}*\n` +
+    `📅 ${p.fecha}\n` +
+    `👤 *Cliente:* ${p.cliente}${p.tel?`\n📱 ${p.tel}`:''}\n` +
+    (p.canal ? `📍 Desde: ${p.canal}\n` : '') +
+    (items ? `\n*Productos:*\n${items}` : '\n(Sin detalle de productos)') +
+    (p.notas ? `\n\n📝 ${p.notas}` : '') +
+    (p.estado==='pendiente' ? `\n\n━━━━━━━━━━━━━━━\nPara confirmar entrega:\n✅ ENTREGADO ${p.folio}` : '') +
+    `\n\n_${NEGOCIO} · MAGNETIA_`;
+  window.open(`https://wa.me/${WA_VEND}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function filtrar(estado, btn) {
+  filtroActual = estado;
+  document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+// ══════════════════════════════════════════
+//  MODAL — editar nombre/notas/tel de un pedido IA
+//  (los productos ya vienen del asesor)
+// ══════════════════════════════════════════
+function abrirModal(id) {
+  document.getElementById('fId').value = id || '';
+  document.getElementById('modalTit').textContent = id ? 'Editar pedido' : 'Nuevo pedido manual';
+
+  if (id) {
+    const p = pedidos.find(x=>x.id===id);
+    document.getElementById('fCliente').value = p?.cliente === '(cliente del asesor IA)' ? '' : (p?.cliente || '');
+    document.getElementById('fTel').value     = p?.tel   || '';
+    document.getElementById('fNotas').value   = p?.notas || '';
+  } else {
+    document.getElementById('fCliente').value = '';
+    document.getElementById('fTel').value = '';
+    document.getElementById('fNotas').value = '';
+  }
+
+  document.getElementById('modalOverlay').classList.add('abierto');
+  setTimeout(()=>document.getElementById('fCliente').focus(), 300);
+}
+
+function cerrarModal() {
+  document.getElementById('modalOverlay').classList.remove('abierto');
+}
+
+function cerrarSiOverlay(e) {
+  if (e.target===document.getElementById('modalOverlay')) cerrarModal();
+}
+
+function guardarDesdeModal() {
+  const cliente = document.getElementById('fCliente').value.trim();
+  const id      = document.getElementById('fId').value;
+
+  if (id) {
+    // Editar pedido existente
+    const p = pedidos.find(x=>x.id===id);
+    if (p) {
+      if (cliente) p.cliente = cliente;
+      p.tel   = document.getElementById('fTel').value.trim();
+      p.notas = document.getElementById('fNotas').value.trim();
+    }
+    guardar(); cerrarModal(); render();
+    toast('✏️ Pedido actualizado');
+  } else {
+    // Pedido manual nuevo
+    if (!cliente) { toast('⚠️ Ingresa el nombre del cliente'); return; }
+    const existentes = pedidos.map(p=>parseInt((p.folio||'#0').replace('#',''))||0);
+    const ultimo = existentes.length > 0 ? Math.max(...existentes) : 0;
+    const folio  = `#${String(ultimo+1).padStart(4,'0')}`;
+    pedidos.push({
+      id:      Date.now().toString(),
+      folio,
+      fecha:   new Date().toLocaleDateString('es-MX',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+      cliente,
+      tel:     document.getElementById('fTel').value.trim(),
+      notas:   document.getElementById('fNotas').value.trim(),
+      canal:   'Manual',
+      items:   [],
+      estado:  'pendiente',
+    });
+    guardar(); cerrarModal(); render();
+    toast('✅ Pedido registrado');
+  }
+}
+
+// ══════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('visible');
+  setTimeout(()=>el.classList.remove('visible'), 2500);
+}
+
+// ══════════════════════════════════════════
+//  POLLING — detectar pedidos nuevos cada 30s
+//  (para cuando el vendedor tiene el tracker abierto
+//   y un cliente hace un pedido desde el asesor)
+// ══════════════════════════════════════════
+function recargarDesdeStorage() {
+  const anterior = pedidos.length;
+  pedidos = leerPedidos();
+  if (pedidos.length > anterior) {
+    render();
+    detectarNuevos();
+  }
+}
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+pedidos = leerPedidos();
+render();
+detectarNuevos();
+
+// Revisar nuevos pedidos cada 30 segundos
+setInterval(recargarDesdeStorage, 30000);
+
+// También recargar al volver a la pestaña
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) { recargarDesdeStorage(); }
+});
+</script>
+</body>
+</html>

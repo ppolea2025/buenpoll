@@ -30,8 +30,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 /* HEADER */
 header { background: var(--verde-dim); border-bottom: 3px solid var(--dorado); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
 .logo-area { display: flex; align-items: center; gap: 12px; }
-.logo-circle { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; background: transparent; }
-.logo-circle img { width: 100%; height: 100%; object-fit: contain; }
+.logo-circle { width: 42px; height: 42px; background: var(--dorado); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
 .logo-text .nombre { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--crema); line-height: 1.1; display: block; }
 .logo-text .sub { font-size: 10px; color: var(--dorado); letter-spacing: .14em; text-transform: uppercase; display: block; margin-top: 2px; }
 .lista-badge { background: var(--dorado); color: #fff; font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 20px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: opacity .2s; border: none; font-family: 'DM Sans', sans-serif; }
@@ -46,21 +45,6 @@ header { background: var(--verde-dim); border-bottom: 3px solid var(--dorado); p
 .hero h1 em { font-style: italic; color: var(--dorado); }
 .hero p { font-size: 13px; color: #B8B498; max-width: 420px; margin: 0 auto; line-height: 1.7; position: relative; }
 
-/* BUSCADOR EN HERO */
-.busqueda-wrap { position: relative; max-width: 380px; margin: 18px auto 0; }
-.busqueda-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--texto-dim); pointer-events: none; }
-.busqueda-input { width: 100%; box-sizing: border-box; font-family: 'DM Sans', sans-serif; font-size: 13.5px; padding: 12px 38px 12px 38px; border-radius: 12px; border: 1.5px solid transparent; background: #fff; color: var(--texto); box-shadow: 0 3px 12px #00000025; }
-.busqueda-input:focus { outline: none; border-color: var(--dorado); }
-.busqueda-input::placeholder { color: var(--texto-dim); }
-.busqueda-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: var(--bg2); border: none; border-radius: 50%; width: 22px; height: 22px; font-size: 15px; line-height: 1; color: var(--texto-dim); cursor: pointer; }
-.busqueda-clear:hover { background: var(--borde); }
-
-/* RESULTADOS DE BÚSQUEDA */
-.busqueda-resultados-info { font-size: 12.5px; color: var(--texto-dim); margin-bottom: 14px; }
-.busqueda-resultados-info strong { color: var(--verde-dim); }
-.busqueda-vacio { text-align: center; padding: 50px 20px; color: var(--texto-dim); }
-.busqueda-vacio .icon { font-size: 36px; margin-bottom: 10px; display: block; }
-
 /* FLUJO PRINCIPAL */
 .main { flex: 1; max-width: 820px; width: 100%; margin: 0 auto; padding: 24px 24px 120px; }
 
@@ -70,14 +54,10 @@ header { background: var(--verde-dim); border-bottom: 3px solid var(--dorado); p
 @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
 /* BREADCRUMB */
-.breadcrumb-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-.btn-inicio { display: flex; align-items: center; gap: 6px; background: var(--verde); color: #fff; border: none; border-radius: 10px; padding: 9px 14px; font-family: 'DM Sans', sans-serif; font-size: 13.5px; font-weight: 700; cursor: pointer; transition: all .2s; flex-shrink: 0; box-shadow: 0 2px 6px var(--verde-30); }
-.btn-inicio:hover { background: var(--verde-dim); transform: translateY(-1px); }
-.btn-inicio svg { width: 15px; height: 15px; flex-shrink: 0; }
-.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--texto-dim); flex-wrap: wrap; }
-.breadcrumb span { cursor: pointer; transition: color .15s; font-weight: 500; }
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--texto-dim); margin-bottom: 20px; flex-wrap: wrap; }
+.breadcrumb span { cursor: pointer; transition: color .15s; }
 .breadcrumb span:hover { color: var(--verde); }
-.breadcrumb span.actual { color: var(--texto); font-weight: 700; cursor: default; }
+.breadcrumb span.actual { color: var(--texto); font-weight: 600; cursor: default; }
 .breadcrumb .sep { opacity: .4; }
 
 /* BIENVENIDA */
@@ -115,7 +95,6 @@ header { background: var(--verde-dim); border-bottom: 3px solid var(--dorado); p
 .prod-foto-placeholder { font-size: 28px; opacity: .3; }
 .prod-info { flex: 1; padding: 12px 14px; }
 .prod-nombre { font-size: 13.5px; font-weight: 600; color: var(--texto); margin-bottom: 4px; }
-.prod-cat-tag { font-size: 10px; color: var(--verde); font-weight: 600; margin-bottom: 4px; opacity: .85; }
 .prod-desc { font-size: 12px; color: var(--texto-dim); line-height: 1.5; }
 .prod-precio { font-size: 11px; color: var(--verde); font-weight: 600; margin-top: 4px; }
 .prod-agotado-tag { font-size: 11px; color: #C0392B; font-weight: 600; margin-top: 4px; }
@@ -148,35 +127,9 @@ header { background: var(--verde-dim); border-bottom: 3px solid var(--dorado); p
 .lista-item-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--bg2); gap: 10px; }
 .lista-item-row:last-child { border-bottom: none; }
 .li-nombre { font-size: 13px; font-weight: 600; color: var(--texto); flex: 1; }
-.li-qty { font-size: 11.5px; font-weight: 600; color: var(--verde); }
 .li-cat { font-size: 11px; color: var(--texto-dim); }
-.li-precio { font-size: 11.5px; color: var(--texto-dim); margin-top: 2px; }
-.li-precio strong { color: var(--verde); }
 .li-del { background: none; border: none; color: #CCC; cursor: pointer; font-size: 18px; flex-shrink: 0; transition: color .15s; }
 .li-del:hover { color: #E57373; }
-.lista-total-box { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: var(--verde-18); border-top: 1px solid var(--borde); font-size: 14px; color: var(--texto); }
-.lista-total-box strong { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--verde-dim); }
-
-/* PRODUCTO FUERA DE CATÁLOGO */
-.especial-box { border-top: 1px solid var(--borde); flex-shrink: 0; }
-.especial-toggle { width: 100%; background: var(--dorado-18); border: none; padding: 11px 20px; display: flex; align-items: center; justify-content: space-between; font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 600; color: var(--verde-dim); cursor: pointer; transition: background .15s; }
-.especial-toggle:hover { background: var(--dorado-30); }
-.especial-chevron { transition: transform .2s; font-size: 14px; }
-.especial-chevron.abierto { transform: rotate(180deg); }
-.especial-form { padding: 12px 20px 16px; background: var(--bg2); display: flex; flex-direction: column; gap: 8px; }
-.especial-hint { font-size: 11.5px; color: var(--texto-dim); line-height: 1.4; }
-.especial-textarea, .especial-cant { font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 9px 11px; border: 1.5px solid var(--borde); border-radius: 8px; background: #fff; color: var(--texto); resize: none; }
-.especial-textarea:focus, .especial-cant:focus { outline: none; border-color: var(--verde); }
-.especial-add-btn { background: var(--verde); border: none; border-radius: 8px; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 10px; cursor: pointer; transition: background .2s; }
-.especial-add-btn:hover { background: var(--verde-dim); }
-.li-especial-tag { font-size: 10px; font-weight: 700; color: var(--dorado); background: var(--dorado-18); padding: 2px 7px; border-radius: 5px; display: inline-block; margin-top: 3px; letter-spacing: .3px; }
-
-/* SELECTOR DE CANTIDAD */
-.qty-selector { display: flex; align-items: center; gap: 0; border: 1.5px solid var(--borde); border-radius: 8px; overflow: hidden; }
-.qty-btn { background: var(--bg2); border: none; width: 28px; height: 28px; font-size: 15px; font-weight: 700; color: var(--verde-dim); cursor: pointer; transition: background .15s; display: flex; align-items: center; justify-content: center; }
-.qty-btn:hover { background: var(--verde-18); }
-.qty-val { width: 28px; text-align: center; font-size: 13px; font-weight: 600; color: var(--texto); }
-.btn-add.en-lista { background: var(--verde-18); color: var(--verde-dim); border: 1px solid var(--verde-30); }
 .lista-empty-msg { text-align: center; padding: 32px 0; font-size: 13px; color: var(--texto-dim); }
 .lista-footer-btns { padding: 14px 20px; border-top: 1px solid var(--borde); display: flex; gap: 10px; }
 .btn-wa-lista { flex: 1; background: #1DB954; border: none; border-radius: 10px; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all .2s; text-decoration: none; }
@@ -228,7 +181,7 @@ footer span { color: var(--dorado); opacity: .7; }
 
 <header>
   <div class="logo-area">
-    <div class="logo-circle"><img src="./logo.png" alt="El Buen Pollo"></div>
+    <div class="logo-circle">🐓</div>
     <div class="logo-text">
       <span class="nombre">El Buen Pollo</span>
       <span class="sub">Encuentra tu producto</span>
@@ -241,14 +194,8 @@ footer span { color: var(--dorado); opacity: .7; }
 
 <div class="hero">
   <div class="hero-eyebrow">Mercado de Sonora · Local 294 · CDMX</div>
-  <img src="./logo.png" alt="Botánica El Buen Pollo" style="width:110px;height:110px;object-fit:contain;margin:0 auto 12px;display:block;filter:drop-shadow(0 4px 12px #00000040);">
   <h1>¿Qué estás<br><em>buscando hoy?</em></h1>
   <p>Te guío paso a paso hasta el producto que necesitas. Sin perderme, sin inventar.</p>
-  <div class="busqueda-wrap">
-    <svg class="busqueda-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input id="busquedaInput" class="busqueda-input" type="text" placeholder="Busca por nombre, ej: vela roja, eleke..." oninput="onBusquedaInput(this.value)">
-    <button class="busqueda-clear" id="busquedaClear" onclick="limpiarBusqueda()" style="display:none">×</button>
-  </div>
 </div>
 
 <div class="main" id="mainContent">
@@ -279,21 +226,8 @@ footer span { color: var(--dorado); opacity: .7; }
     <button class="lista-drawer-close" onclick="toggleDrawer()">×</button>
   </div>
   <div class="lista-items-wrap" id="drawerItems"></div>
-  <div class="lista-total-box" id="drawerTotal" style="display:none"></div>
-  <div class="especial-box">
-    <button class="especial-toggle" id="especialToggle" onclick="toggleEspecialForm()">
-      <span>🔍 ¿Buscas algo que no está en el catálogo?</span>
-      <span class="especial-chevron" id="especialChevron">▾</span>
-    </button>
-    <div class="especial-form" id="especialForm" style="display:none">
-      <p class="especial-hint">El Buen Pollo también consigue productos de otros lugares por encargo. Descríbelo y lo agregamos a tu pedido.</p>
-      <textarea id="especialDesc" class="especial-textarea" placeholder="Ej: Resina de copal de grano, marca tal, la que venden en..." rows="2"></textarea>
-      <input id="especialCant" class="especial-cant" type="text" placeholder="Cantidad deseada (ej: 2 piezas, 1 kg...)">
-      <button class="especial-add-btn" onclick="agregarEspecial()">+ Agregar a mi pedido</button>
-    </div>
-  </div>
   <div class="lista-footer-btns">
-    <a class="btn-wa-lista" id="btnWALista" href="#" target="_blank">
+    <a class="btn-wa-lista" id="btnWALista" href="#" target="_blank" onclick="guardarPedidoEnTracker()">
       <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Enviar pedido al vendedor
     </a>
@@ -319,7 +253,6 @@ footer span { color: var(--dorado); opacity: .7; }
 const WA_NUMERO  = "525516478491";
 const IMGS_BASE  = "./imgs/";   // carpeta de imágenes en Vercel
 const MD_URL     = "./catalogo.md";
-const STORAGE_KEY = "buenpoll_lista_pedido";
 
 // ══════════════════════════════════════════
 //  ESTADO
@@ -374,55 +307,19 @@ function parsearMD(texto) {
         nombre: partes[0] || '',
         descripcion: partes[1] || '',
         foto: null,
-        agotado: false,
-        precio: null,        // precio normal por pieza (número o null)
-        mayoreo: null,       // precio c/u a partir del umbral (número o null)
-        mayoreoDesde: null   // cantidad mínima para activar mayoreo (número o null)
+        agotado: false
       };
-      // Buscar foto: foto:archivo.jpg
+      // Buscar foto
       const fotoMatch = linea.match(/foto:\s*([\w\-\.]+)/);
       if (fotoMatch) prod.foto = fotoMatch[1].trim();
-      // Buscar precio normal: precio:50
-      const precioMatch = linea.match(/precio:\s*\$?([\d.]+)/);
-      if (precioMatch) prod.precio = parseFloat(precioMatch[1]);
-      // Buscar mayoreo: mayoreo:5x42  →  desde 5 piezas, $42 c/u
-      const mayoreoMatch = linea.match(/mayoreo:\s*(\d+)x\$?([\d.]+)/);
-      if (mayoreoMatch) {
-        prod.mayoreoDesde = parseInt(mayoreoMatch[1]);
-        prod.mayoreo = parseFloat(mayoreoMatch[2]);
-      }
       subActiva.productos.push(prod);
     }
     else if (subActiva && linea.startsWith('- AGOTADO:')) {
       const nombre = linea.replace('- AGOTADO:', '').trim();
-      subActiva.productos.push({ nombre, descripcion: 'Temporalmente sin stock.', foto: null, agotado: true, precio: null, mayoreo: null, mayoreoDesde: null });
+      subActiva.productos.push({ nombre, descripcion: 'Temporalmente sin stock.', foto: null, agotado: true });
     }
   }
   return cats;
-}
-
-// ══════════════════════════════════════════
-//  PRECIOS — cálculo de escalón aplicable
-// ══════════════════════════════════════════
-function precioUnitario(prod, cantidad) {
-  if (prod.precio == null) return null;
-  if (prod.mayoreo != null && prod.mayoreoDesde != null && cantidad >= prod.mayoreoDesde) {
-    return prod.mayoreo;
-  }
-  return prod.precio;
-}
-
-function formatoMoneda(n) {
-  return '$' + n.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
-
-function textoPrecio(prod) {
-  if (prod.precio == null) return 'Precio: confirmar con vendedor';
-  let txt = `${formatoMoneda(prod.precio)} c/u`;
-  if (prod.mayoreo != null && prod.mayoreoDesde != null) {
-    txt += ` · ${formatoMoneda(prod.mayoreo)} c/u desde ${prod.mayoreoDesde} pzs`;
-  }
-  return txt;
 }
 
 // ══════════════════════════════════════════
@@ -452,9 +349,11 @@ function renderSubcats(catNombre) {
   catActual = cat;
   const main = document.getElementById('mainContent');
   main.innerHTML = `
-    ${renderBreadcrumb(`
+    <div class="breadcrumb">
+      <span onclick="renderCategorias()">Inicio</span>
+      <span class="sep">›</span>
       <span class="actual">${cat.nombre}</span>
-    `)}
+    </div>
     ${cat.subcats[0]?.dialogo ? `
       <div class="dialogo-box" style="margin-bottom:20px">
         <p>${cat.subcats[0].dialogo}</p>
@@ -477,47 +376,6 @@ function renderSubcats(catNombre) {
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function renderTarjetaProducto(p, cat, sub) {
-  const enLista = lista.find(i=>i.nombre===p.nombre);
-  const fotoBtn = p.foto ? `<button class="btn-foto" onclick="verFoto('${escapar(p.foto)}','${escapar(p.nombre)}')">🖼️ Ver foto</button>` : '';
-
-  let accionesHTML;
-  if (p.agotado) {
-    accionesHTML = `<button class="btn-add" disabled>Sin stock</button>${fotoBtn}`;
-  } else if (enLista) {
-    accionesHTML = `
-      <div class="qty-selector">
-        <button class="qty-btn" onclick="cambiarCantidad('${escapar(p.nombre)}',-1)">−</button>
-        <span class="qty-val">${enLista.cantidad}</span>
-        <button class="qty-btn" onclick="cambiarCantidad('${escapar(p.nombre)}',1)">+</button>
-      </div>
-      <button class="btn-add en-lista" disabled>✓ En lista</button>
-      ${fotoBtn}`;
-  } else {
-    accionesHTML = `<button class="btn-add" onclick="agregarALista('${escapar(p.nombre)}','${escapar(cat.nombre)}','${escapar(sub.nombre)}',${p.precio==null?'null':p.precio},${p.mayoreo==null?'null':p.mayoreo},${p.mayoreoDesde==null?'null':p.mayoreoDesde})">+ Agregar</button>${fotoBtn}`;
-  }
-
-  return `
-    <div class="prod-card ${p.agotado?'agotado':''}" id="prod-${escapar(p.nombre)}">
-      <div class="prod-main">
-        <div class="prod-foto-wrap">
-          ${p.foto
-            ? `<img src="${IMGS_BASE}${p.foto}" alt="${p.nombre}" onerror="this.parentElement.innerHTML='<span class=prod-foto-placeholder>${cat.icono}</span>'">`
-            : `<span class="prod-foto-placeholder">${cat.icono}</span>`}
-        </div>
-        <div class="prod-info">
-          <div class="prod-nombre">${p.nombre}</div>
-          <div class="prod-cat-tag">${cat.icono} ${cat.nombre} › ${sub.nombre}</div>
-          <div class="prod-desc">${p.descripcion}</div>
-          ${p.agotado ? '<div class="prod-agotado-tag">⚠️ Sin stock por el momento</div>' : `<div class="prod-precio">${textoPrecio(p)}</div>`}
-        </div>
-      </div>
-      <div class="prod-actions">
-        ${accionesHTML}
-      </div>
-    </div>`;
-}
-
 function renderProductos(catNombre, subNombre) {
   const cat = catalogo.find(c=>c.nombre===catNombre);
   const sub = cat?.subcats.find(s=>s.nombre===subNombre);
@@ -525,102 +383,49 @@ function renderProductos(catNombre, subNombre) {
   catActual = cat; subActual = sub;
   const main = document.getElementById('mainContent');
 
-  const prodsHTML = sub.productos.map(p => renderTarjetaProducto(p, cat, sub)).join('');
+  const prodsHTML = sub.productos.map(p => {
+    const enLista = lista.find(i=>i.nombre===p.nombre);
+    const fotoBtn = p.foto ? `<button class="btn-foto" onclick="verFoto('${escapar(p.foto)}','${escapar(p.nombre)}')">🖼️ Ver foto</button>` : '';
+    const addBtn  = p.agotado
+      ? `<button class="btn-add" disabled>Sin stock</button>`
+      : enLista
+        ? `<button class="btn-add" disabled>✓ En lista</button>`
+        : `<button class="btn-add" onclick="agregarALista('${escapar(p.nombre)}','${escapar(cat.nombre)}','${escapar(sub.nombre)}',this)">+ Agregar</button>`;
+
+    return `
+      <div class="prod-card ${p.agotado?'agotado':''}" id="prod-${escapar(p.nombre)}">
+        <div class="prod-main">
+          <div class="prod-foto-wrap">
+            ${p.foto
+              ? `<img src="${IMGS_BASE}${p.foto}" alt="${p.nombre}" onerror="this.parentElement.innerHTML='<span class=prod-foto-placeholder>${cat.icono}</span>'">`
+              : `<span class="prod-foto-placeholder">${cat.icono}</span>`}
+          </div>
+          <div class="prod-info">
+            <div class="prod-nombre">${p.nombre}</div>
+            <div class="prod-desc">${p.descripcion}</div>
+            ${p.agotado ? '<div class="prod-agotado-tag">⚠️ Sin stock por el momento</div>' : '<div class="prod-precio">Precio: confirmar con vendedor</div>'}
+          </div>
+        </div>
+        <div class="prod-actions">
+          ${addBtn}
+          ${fotoBtn}
+        </div>
+      </div>`;
+  }).join('');
 
   main.innerHTML = `
-    ${renderBreadcrumb(`
+    <div class="breadcrumb">
+      <span onclick="renderCategorias()">Inicio</span>
+      <span class="sep">›</span>
       <span onclick="renderSubcats('${escapar(cat.nombre)}')">${cat.nombre}</span>
       <span class="sep">›</span>
       <span class="actual">${sub.nombre}</span>
-    `)}
+    </div>
     ${sub.dialogo ? `
       <div class="dialogo-box" style="margin-bottom:20px">
         <p>${sub.dialogo}</p>
       </div>` : ''}
     <div class="section-label">${sub.productos.length} productos en ${sub.nombre}</div>
-    <div class="productos-grid">
-      ${prodsHTML}
-    </div>
-    ${renderCTA()}`;
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-// ══════════════════════════════════════════
-//  BUSCADOR INTERNO POR TEXTO
-// ══════════════════════════════════════════
-let busquedaTimeout = null;
-let busquedaActiva = '';
-
-function normalizarTexto(str) {
-  return str
-    .toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // quita acentos: á→a, é→e, etc.
-}
-
-function onBusquedaInput(valor) {
-  document.getElementById('busquedaClear').style.display = valor.trim() ? 'flex' : 'none';
-  clearTimeout(busquedaTimeout);
-  busquedaTimeout = setTimeout(() => ejecutarBusqueda(valor), 220); // debounce simple
-}
-
-function limpiarBusqueda() {
-  const input = document.getElementById('busquedaInput');
-  input.value = '';
-  document.getElementById('busquedaClear').style.display = 'none';
-  busquedaActiva = '';
-  renderCategorias();
-  input.focus();
-}
-
-function ejecutarBusqueda(valorCrudo) {
-  const q = valorCrudo.trim();
-  busquedaActiva = q;
-
-  if (q.length === 0) {
-    renderCategorias();
-    return;
-  }
-  // Evita buscar con 1 sola letra (demasiado ruido, resultados poco útiles)
-  if (q.length < 2) return;
-
-  const qNorm = normalizarTexto(q);
-  const resultados = [];
-
-  catalogo.forEach(cat => {
-    cat.subcats.forEach(sub => {
-      sub.productos.forEach(p => {
-        const nombreNorm = normalizarTexto(p.nombre);
-        const descNorm = normalizarTexto(p.descripcion || '');
-        if (nombreNorm.includes(qNorm) || descNorm.includes(qNorm)) {
-          resultados.push({ p, cat, sub });
-        }
-      });
-    });
-  });
-
-  renderResultadosBusqueda(q, resultados);
-}
-
-function renderResultadosBusqueda(query, resultados) {
-  const main = document.getElementById('mainContent');
-  catActual = null; subActual = null;
-
-  if (resultados.length === 0) {
-    main.innerHTML = `
-      ${renderBreadcrumb(`<span class="actual">Búsqueda: "${escapar(query)}"</span>`)}
-      <div class="busqueda-vacio">
-        <span class="icon">🔍</span>
-        <p>No encontramos productos para «${query}».<br>Intenta con otra palabra, o descríbelo como producto fuera de catálogo desde tu lista.</p>
-      </div>
-      ${renderCTA()}`;
-    return;
-  }
-
-  const prodsHTML = resultados.map(r => renderTarjetaProducto(r.p, r.cat, r.sub)).join('');
-
-  main.innerHTML = `
-    ${renderBreadcrumb(`<span class="actual">Búsqueda: "${escapar(query)}"</span>`)}
-    <div class="busqueda-resultados-info"><strong>${resultados.length}</strong> resultado${resultados.length===1?'':'s'} para «${query}»</div>
     <div class="productos-grid">
       ${prodsHTML}
     </div>
@@ -638,9 +443,6 @@ function renderCTA() {
           <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           WhatsApp
         </a>
-        <a class="cta-btn-wa" style="background:var(--dorado);color:var(--verde-dim)" href="https://wa.me/${WA_NUMERO}?text=Hola%2C%20ya%20compr%C3%A9%20un%20producto%20antes%20y%20quiero%20otro%20igual.%20Les%20mando%20foto%20del%20producto%20para%20identificarlo%3A" target="_blank">
-          📷 Repetir compra (con foto)
-        </a>
         <a class="cta-btn-maps" href="https://maps.google.com/?q=Mercado+de+Sonora+Local+294+CDMX" target="_blank">📍 Cómo llegar</a>
       </div>
     </div>`;
@@ -655,22 +457,13 @@ function selSub(cat, sub) { renderProductos(cat, sub); }
 // ══════════════════════════════════════════
 //  LISTA DE COMPRAS
 // ══════════════════════════════════════════
-function agregarALista(nombre, cat, sub, precio, mayoreo, mayoreoDesde) {
+function agregarALista(nombre, cat, sub, btn) {
   if (lista.find(i=>i.nombre===nombre)) return;
-  lista.push({ nombre, cat, sub, cantidad: 1, precio, mayoreo, mayoreoDesde });
+  lista.push({ nombre, cat, sub });
   actualizarUI();
-  // Refrescar la card para mostrar el selector de cantidad
-  if (catActual && subActual) renderProductos(catActual.nombre, subActual.nombre);
-  else if (busquedaActiva) ejecutarBusqueda(busquedaActiva);
-}
-
-function cambiarCantidad(nombre, delta) {
-  const item = lista.find(i=>i.nombre===nombre);
-  if (!item) return;
-  item.cantidad = Math.max(1, item.cantidad + delta);
-  actualizarUI();
-  if (catActual && subActual) renderProductos(catActual.nombre, subActual.nombre);
-  else if (busquedaActiva) ejecutarBusqueda(busquedaActiva);
+  // Feedback visual en el botón
+  btn.textContent = '✓ Agregado';
+  btn.disabled = true;
 }
 
 function quitarDeLista(i) {
@@ -679,7 +472,6 @@ function quitarDeLista(i) {
   renderDrawer();
   // Refrescar botones en la vista actual
   if (catActual && subActual) renderProductos(catActual.nombre, subActual.nombre);
-  else if (busquedaActiva) ejecutarBusqueda(busquedaActiva);
 }
 
 function limpiarLista() {
@@ -692,45 +484,6 @@ function limpiarLista() {
   if (catActual && subActual) renderProductos(catActual.nombre, subActual.nombre);
 }
 
-// ══════════════════════════════════════════
-//  PRODUCTO FUERA DE CATÁLOGO
-// ══════════════════════════════════════════
-function toggleEspecialForm() {
-  const form = document.getElementById('especialForm');
-  const chevron = document.getElementById('especialChevron');
-  const abierto = form.style.display !== 'none';
-  form.style.display = abierto ? 'none' : 'flex';
-  chevron.classList.toggle('abierto', !abierto);
-}
-
-function agregarEspecial() {
-  const descInput = document.getElementById('especialDesc');
-  const cantInput = document.getElementById('especialCant');
-  const desc = descInput.value.trim();
-  const cant = cantInput.value.trim();
-
-  if (!desc) {
-    descInput.focus();
-    return;
-  }
-
-  lista.push({
-    nombre: desc,
-    cat: 'Fuera de catálogo',
-    sub: cant ? `Cantidad: ${cant}` : 'Por confirmar',
-    cantidad: 1,
-    precio: null,
-    mayoreo: null,
-    mayoreoDesde: null,
-    especial: true
-  });
-
-  descInput.value = '';
-  cantInput.value = '';
-  toggleEspecialForm();
-  actualizarUI();
-}
-
 function actualizarUI() {
   const n = lista.length;
   document.getElementById('badgeN').textContent = n;
@@ -739,111 +492,71 @@ function actualizarUI() {
   barra.classList.toggle('visible', n>0);
   renderDrawer();
   actualizarBtnWA();
-  guardarListaLocal();
-}
-
-// ══════════════════════════════════════════
-//  PERSISTENCIA LOCAL — sobrevive cerrar pestaña
-// ══════════════════════════════════════════
-function guardarListaLocal() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
-  } catch(e) {
-    // localStorage puede fallar en modo incógnito o si está lleno — no es crítico, seguimos sin guardar
-  }
-}
-
-function cargarListaLocal() {
-  try {
-    const guardada = localStorage.getItem(STORAGE_KEY);
-    if (guardada) {
-      const parsed = JSON.parse(guardada);
-      if (Array.isArray(parsed)) lista = parsed;
-    }
-  } catch(e) {
-    lista = [];
-  }
 }
 
 function renderDrawer() {
   const cont = document.getElementById('drawerItems');
   if (lista.length===0) {
     cont.innerHTML = '<div class="lista-empty-msg">Tu lista está vacía.<br>Agrega productos desde el catálogo.</div>';
-    document.getElementById('drawerTotal').style.display = 'none';
     return;
   }
-  let totalGeneral = 0;
-  let hayPrecios = false;
-
-  cont.innerHTML = lista.map((item,i) => {
-    const unit = precioUnitario(item, item.cantidad);
-    let lineaPrecio = '';
-    if (unit != null) {
-      hayPrecios = true;
-      const subtotal = unit * item.cantidad;
-      totalGeneral += subtotal;
-      lineaPrecio = `<div class="li-precio">${formatoMoneda(unit)} c/u → <strong>${formatoMoneda(subtotal)}</strong></div>`;
-    }
-    const tagEspecial = item.especial ? `<div class="li-especial-tag">🔍 Fuera de catálogo</div>` : '';
-    return `
+  cont.innerHTML = lista.map((item,i) => `
     <div class="lista-item-row">
       <div>
-        <div class="li-nombre">${item.nombre} ${!item.especial ? `<span class="li-qty">×${item.cantidad}</span>` : ''}</div>
+        <div class="li-nombre">${item.nombre}</div>
         <div class="li-cat">${item.cat} › ${item.sub}</div>
-        ${tagEspecial}
-        ${lineaPrecio}
       </div>
       <button class="li-del" onclick="quitarDeLista(${i})">×</button>
-    </div>`;
-  }).join('');
-
-  const totalBox = document.getElementById('drawerTotal');
-  if (hayPrecios) {
-    totalBox.style.display = 'flex';
-    totalBox.innerHTML = `<span>Total estimado</span><strong>${formatoMoneda(totalGeneral)}</strong>`;
-  } else {
-    totalBox.style.display = 'none';
-  }
-}
-
-function generarFolioPedido() {
-  const ahora = new Date();
-  const dd = String(ahora.getDate()).padStart(2,'0');
-  const mm = String(ahora.getMonth()+1).padStart(2,'0');
-  const aa = String(ahora.getFullYear()).slice(-2);
-  const fecha = `${dd}${mm}${aa}`;
-  // hora en formato HHMM para diferenciar pedidos del mismo día
-  const hh = String(ahora.getHours()).padStart(2,'0');
-  const min = String(ahora.getMinutes()).padStart(2,'0');
-  return { fecha, folio: `BP-${fecha}-${hh}${min}` };
+    </div>`).join('');
 }
 
 function actualizarBtnWA() {
   if (lista.length===0) return;
-  let totalGeneral = 0;
-  let hayPrecios = false;
-  let hayEspeciales = false;
-
-  const lineas = lista.map(i=>{
-    if (i.especial) {
-      hayEspeciales = true;
-      return `• 🔍 FUERA DE CATÁLOGO: ${i.nombre} — ${i.sub}`;
-    }
-    const unit = precioUnitario(i, i.cantidad);
-    if (unit != null) {
-      hayPrecios = true;
-      const subtotal = unit * i.cantidad;
-      totalGeneral += subtotal;
-      return `• ${i.nombre} — ${i.cantidad} pz x ${formatoMoneda(unit)} = ${formatoMoneda(subtotal)}`;
-    }
-    return `• ${i.nombre} — ${i.cantidad} pz`;
-  }).join('\n');
-
-  const totalTxt = hayPrecios ? `\n\nTotal estimado (productos de catálogo): ${formatoMoneda(totalGeneral)}` : '';
-  const especialesTxt = hayEspeciales ? `\n\n(Los productos fuera de catálogo se cotizan aparte, sujeto a disponibilidad con proveedor.)` : '';
-  const { fecha, folio } = generarFolioPedido();
-  const msg = encodeURIComponent(`PEDIDO ${folio} — El Buen Pollo\nFecha: ${fecha}\n\n${lineas}${totalTxt}${especialesTxt}\n\n¿Me confirma precio y disponibilidad? Gracias.`);
+  const lineas = lista.map(i=>`• ${i.nombre} (${i.cat})`).join('\n');
+  const msg = encodeURIComponent(`Hola, armé mi lista con el catálogo de El Buen Poll:\n\n${lineas}\n\n¿Me confirma precio y disponibilidad? Gracias.`);
   document.getElementById('btnWALista').href = `https://wa.me/${WA_NUMERO}?text=${msg}`;
+}
+
+// ══════════════════════════════════════════
+//  GUARDAR PEDIDO EN localStorage → Tracker
+//  Se llama al tocar "Enviar al vendedor"
+// ══════════════════════════════════════════
+function guardarPedidoEnTracker() {
+  if (lista.length === 0) return;
+
+  // Leer pedidos existentes
+  let pedidos = [];
+  try { pedidos = JSON.parse(localStorage.getItem('buenpoll_pedidos') || '[]'); } catch(e) {}
+
+  // Generar folio correlativo
+  const ultimoFolio = pedidos.length > 0
+    ? Math.max(...pedidos.map(p => parseInt((p.folio||'#0').replace('#','')) || 0))
+    : 0;
+  const folio = `#${String(ultimoFolio + 1).padStart(4,'0')}`;
+
+  // Construir el pedido
+  const nuevoPedido = {
+    id:      Date.now().toString(),
+    folio,
+    fecha:   new Date().toLocaleDateString('es-MX', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+    cliente: '(cliente del asesor IA)',
+    tel:     '',
+    canal:   'Asesor IA',
+    notas:   '',
+    estado:  'pendiente',
+    items:   lista.map(i => ({ nombre: i.nombre, categoria: i.cat, cantidad: 1 })),
+  };
+
+  pedidos.push(nuevoPedido);
+  localStorage.setItem('buenpoll_pedidos', JSON.stringify(pedidos));
+
+  // Feedback visual sutil
+  const btn = document.getElementById('btnWALista');
+  if (btn) {
+    const textoOriginal = btn.innerHTML;
+    btn.innerHTML = '✓ Pedido guardado en tracker';
+    setTimeout(() => { btn.innerHTML = textoOriginal; }, 2500);
+  }
 }
 
 function toggleDrawer() {
@@ -876,24 +589,9 @@ function escapar(str) {
 }
 
 // ══════════════════════════════════════════
-//  BREADCRUMB — con botón de inicio destacado
-// ══════════════════════════════════════════
-function renderBreadcrumb(itemsHTML) {
-  return `
-    <div class="breadcrumb-wrap">
-      <button class="btn-inicio" onclick="renderCategorias()">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3l9-8z"/></svg>
-        Inicio
-      </button>
-      <div class="breadcrumb">${itemsHTML}</div>
-    </div>`;
-}
-
-// ══════════════════════════════════════════
 //  INICIALIZAR — cargar MD
 // ══════════════════════════════════════════
 async function iniciar() {
-  cargarListaLocal();
   try {
     const resp = await fetch(MD_URL);
     if (!resp.ok) throw new Error('No se pudo cargar el catálogo');
@@ -901,7 +599,6 @@ async function iniciar() {
     catalogo = parsearMD(texto);
     if (catalogo.length===0) throw new Error('Catálogo vacío');
     renderCategorias();
-    actualizarUI();
   } catch(e) {
     document.getElementById('mainContent').innerHTML = `
       <div class="error-box">
