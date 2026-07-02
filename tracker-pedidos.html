@@ -233,6 +233,103 @@ body {
 .btn-del { background: none; border: none; color: var(--borde); cursor: pointer; font-size: 18px; flex: 0; padding: 8px 4px; }
 .btn-del:hover { color: var(--rojo); }
 
+/* ══ PANEL EDICIÓN ══ */
+.ticket-edit {
+  display: none;
+  padding: 14px;
+  border-top: 1px dashed var(--borde);
+  background: var(--bg);
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+.ticket.editando .ticket-edit { display: block; }
+
+.edit-section { margin-bottom: 14px; }
+.edit-label {
+  font-size: 10px; font-weight: 700;
+  color: var(--texto-dim); letter-spacing: .12em;
+  text-transform: uppercase; margin-bottom: 8px; display: block;
+}
+
+/* Productos editables */
+.prod-edit-list { display: flex; flex-direction: column; gap: 5px; }
+.prod-edit-row {
+  display: flex; align-items: center; gap: 8px;
+  background: white; border: 1px solid var(--borde);
+  border-radius: 8px; padding: 8px 10px;
+  font-size: 12.5px; color: var(--texto); transition: opacity .2s;
+}
+.prod-edit-row.tachado {
+  opacity: .4; text-decoration: line-through;
+}
+.prod-edit-row span { flex: 1; line-height: 1.4; }
+.btn-tachar {
+  background: none; border: none;
+  font-size: 16px; cursor: pointer; color: var(--borde);
+  flex-shrink: 0; padding: 0; transition: color .15s;
+}
+.btn-tachar:hover { color: var(--rojo); }
+.prod-edit-row.tachado .btn-tachar { color: var(--dorado); }
+
+/* Chips rápidos */
+.chips-row { display: flex; flex-wrap: wrap; gap: 7px; }
+.chip-op {
+  background: white; border: 1.5px solid var(--borde);
+  border-radius: 20px; padding: 7px 14px;
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
+  color: var(--texto-dim); cursor: pointer; transition: all .15s;
+  white-space: nowrap;
+}
+.chip-op:hover { border-color: var(--verde); background: var(--verde-18); color: var(--verde-dim); }
+.chip-op.sel { background: var(--verde-18); border-color: var(--verde); color: var(--verde-dim); font-weight: 700; }
+.chip-op.sel-dorado { background: var(--dorado-18); border-color: var(--dorado); color: #6B5300; font-weight: 700; }
+
+/* Inputs del editor */
+.edit-input {
+  background: white; border: 1.5px solid var(--borde);
+  border-radius: 10px; padding: 10px 13px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px;
+  color: var(--texto); outline: none; width: 100%;
+  transition: border-color .2s;
+}
+.edit-input:focus { border-color: var(--verde); }
+.edit-input::placeholder { color: #BBB; }
+.edit-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.saldo-campo { display: none; }
+.saldo-campo.visible { display: block; }
+
+/* Resumen del ticket */
+.ticket-resumen {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 8px 14px;
+  border-top: 1px solid var(--borde);
+  background: var(--crema);
+}
+.resumen-chip {
+  font-size: 11px; font-weight: 600;
+  padding: 3px 10px; border-radius: 10px;
+  display: flex; align-items: center; gap: 4px;
+}
+.rc-importe { background: var(--verde-18); color: var(--verde-dim); border: 1px solid var(--verde-30); }
+.rc-entrega { background: var(--dorado-18); color: #6B5300; border: 1px solid var(--dorado-30); }
+.rc-pagado  { background: var(--verde-18); color: var(--verde-dim); border: 1px solid var(--verde-30); }
+.rc-saldo   { background: var(--rojo-bg); color: var(--rojo); border: 1px solid #FFCCCC; }
+
+/* Botones del editor */
+.edit-footer { display: flex; gap: 8px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--borde); }
+.btn-guardar-edit {
+  flex: 1; background: var(--verde-dim); color: var(--crema);
+  border: none; border-radius: 10px; padding: 12px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+  cursor: pointer; border: 2px solid var(--dorado-30); transition: background .15s;
+}
+.btn-guardar-edit:hover { background: var(--verde); }
+.btn-cancelar-edit {
+  background: var(--bg2); border: 1.5px solid var(--borde);
+  border-radius: 10px; padding: 12px 14px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--texto-dim); cursor: pointer;
+}
+
 /* ══ MODAL PEGAR ══ */
 .modal-bg {
   position: fixed; inset: 0;
@@ -636,18 +733,26 @@ function render() {
   cont.innerHTML = lista.map(t => {
     const acciones = t.estado === 'pendiente' ? `
       <button class="btn-ac btn-entregar" onclick="cambiarEstado('${t.id}','entregado')">✅ Entregado</button>
+      <button class="btn-ac" style="background:var(--dorado-18);border:1px solid var(--dorado-30);color:#6B5300" onclick="toggleEditar('${t.id}')">✏️ Editar</button>
       <button class="btn-ac btn-cancelar" onclick="cambiarEstado('${t.id}','cancelado')">❌</button>
       <button class="btn-del" onclick="eliminar('${t.id}')">🗑️</button>
     ` : t.estado === 'entregado' ? `
       <button class="btn-ac btn-reabrir" onclick="cambiarEstado('${t.id}','pendiente')">↩️ Reabrir</button>
+      <button class="btn-ac" style="background:var(--dorado-18);border:1px solid var(--dorado-30);color:#6B5300" onclick="toggleEditar('${t.id}')">✏️ Editar</button>
       <button class="btn-del" onclick="eliminar('${t.id}')">🗑️</button>
     ` : `
       <button class="btn-ac btn-reabrir" onclick="cambiarEstado('${t.id}','pendiente')">↩️ Reabrir</button>
       <button class="btn-del" onclick="eliminar('${t.id}')">🗑️</button>
     `;
 
-    // Extraer primera línea del texto como resumen
-    const resumen = t.texto.split('\n').find(l=>l.trim()) || '';
+    // Resumen si tiene datos editados
+    const resumenHtml = renderResumen(t);
+
+    // Panel de edición
+    const editHtml = renderPanelEdicion(t);
+
+    // Extracto primera línea
+    const _lineas = t.texto.split('\n').filter(l=>l.trim());
 
     return `
       <div class="ticket ${t.estado}" id="tkt-${t.id}">
@@ -662,9 +767,11 @@ function render() {
           <span class="ticket-estado ${t.estado}">${estadoLabel[t.estado]}</span>
           <span class="ticket-chevron">▾</span>
         </div>
+        ${resumenHtml}
         <div class="ticket-body">
           <div class="ticket-texto">${escHtml(t.texto)}</div>
         </div>
+        <div class="ticket-edit" id="edit-${t.id}">${editHtml}</div>
         <div class="ticket-acciones">${acciones}</div>
       </div>`;
   }).join('');
@@ -672,6 +779,158 @@ function render() {
 
 function escHtml(str) {
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ══════════════════════════════════════════
+//  PARSEAR PRODUCTOS DEL TEXTO
+// ══════════════════════════════════════════
+function parsearProductos(texto) {
+  return texto.split('\n')
+    .map((linea, idx) => ({ idx, linea: linea.trim() }))
+    .filter(({linea}) => linea.startsWith('•') || linea.startsWith('-'));
+}
+
+// ══════════════════════════════════════════
+//  RENDER RESUMEN (chips bajo el header)
+// ══════════════════════════════════════════
+function renderResumen(t) {
+  const chips = [];
+  if (t.importe)  chips.push(`<span class="resumen-chip rc-importe">💰 $${Number(t.importe).toLocaleString('es-MX')}</span>`);
+  if (t.entrega)  chips.push(`<span class="resumen-chip rc-entrega">🚚 ${t.entrega}</span>`);
+  if (t.pago === 'pagado')
+    chips.push(`<span class="resumen-chip rc-pagado">✅ Pagado</span>`);
+  else if (t.pago === 'parcial' && t.saldo)
+    chips.push(`<span class="resumen-chip rc-saldo">⚠️ Saldo $${Number(t.saldo).toLocaleString('es-MX')}</span>`);
+  else if (t.pago === 'pendiente_pago')
+    chips.push(`<span class="resumen-chip rc-saldo">💳 Pago pendiente</span>`);
+  if (!chips.length) return '';
+  return `<div class="ticket-resumen">${chips.join('')}</div>`;
+}
+
+// ══════════════════════════════════════════
+//  RENDER PANEL DE EDICIÓN
+// ══════════════════════════════════════════
+function renderPanelEdicion(t) {
+  const prods = parsearProductos(t.texto);
+  const eliminados = t.productosEliminados || [];
+
+  const prodsHtml = prods.length > 0 ? `
+    <div class="edit-section">
+      <span class="edit-label">Productos del pedido</span>
+      <div class="prod-edit-list">
+        ${prods.map(({idx, linea}) => {
+          const tachado = eliminados.includes(idx);
+          return `<div class="prod-edit-row${tachado?' tachado':''}" id="prow-${t.id}-${idx}">
+            <span>${escHtml(linea.replace(/^[•\-]\s*/,''))}</span>
+            <button class="btn-tachar" onclick="toggleProducto('${t.id}',${idx})" title="${tachado?'Restaurar':'Marcar como no surtido'}">${tachado?'↩️':'✕'}</button>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>` : '';
+
+  const opEntrega = ['Uber Envíos','Transporte propio','Cliente recoge','Mensajería'];
+  const entregaChips = opEntrega.map(op => `
+    <button class="chip-op${t.entrega===op?' sel':''}" onclick="selChip('${t.id}','entrega','${op}',this)">${op}</button>
+  `).join('');
+
+  const opPago = [
+    {v:'pagado',       l:'✅ Pagado completo'},
+    {v:'parcial',      l:'⚠️ Saldo pendiente'},
+    {v:'pendiente_pago', l:'💳 Por confirmar'},
+  ];
+  const pagoChips = opPago.map(op => `
+    <button class="chip-op${t.pago===op.v?' sel-dorado':''}" onclick="selChip('${t.id}','pago','${op.v}',this)">${op.l}</button>
+  `).join('');
+
+  return `
+    ${prodsHtml}
+    <div class="edit-section">
+      <span class="edit-label">Importe total del pedido</span>
+      <input class="edit-input" type="number" id="ei-importe-${t.id}"
+        placeholder="$ 0.00" value="${t.importe||''}"
+        style="max-width:200px">
+    </div>
+    <div class="edit-section">
+      <span class="edit-label">Tipo de entrega</span>
+      <div class="chips-row">${entregaChips}</div>
+    </div>
+    <div class="edit-section">
+      <span class="edit-label">Estado de pago</span>
+      <div class="chips-row">${pagoChips}</div>
+      <div class="saldo-campo${t.pago==='parcial'?' visible':''}" id="sc-${t.id}" style="margin-top:10px">
+        <input class="edit-input" type="number" id="ei-saldo-${t.id}"
+          placeholder="Monto del saldo pendiente $" value="${t.saldo||''}"
+          style="max-width:220px">
+      </div>
+    </div>
+    <div class="edit-section">
+      <span class="edit-label">Observaciones</span>
+      <input class="edit-input" type="text" id="ei-obs-${t.id}"
+        placeholder="Ej. Entregar antes de las 5pm, empacar bien las velas..."
+        value="${escHtml(t.observaciones||'')}">
+    </div>
+    <div class="edit-footer">
+      <button class="btn-cancelar-edit" onclick="toggleEditar('${t.id}')">Cancelar</button>
+      <button class="btn-guardar-edit" onclick="guardarEdicion('${t.id}')">💾 Guardar cambios</button>
+    </div>`;
+}
+
+// ══════════════════════════════════════════
+//  ACCIONES DE EDICIÓN
+// ══════════════════════════════════════════
+function toggleEditar(id) {
+  const tkt = document.getElementById('tkt-'+id);
+  if (!tkt) return;
+  tkt.classList.toggle('editando');
+  tkt.classList.toggle('expandido');
+}
+
+function toggleProducto(id, idx) {
+  const t = tickets.find(x=>x.id===id);
+  if (!t) return;
+  if (!t.productosEliminados) t.productosEliminados = [];
+  const pos = t.productosEliminados.indexOf(idx);
+  if (pos === -1) t.productosEliminados.push(idx);
+  else t.productosEliminados.splice(pos,1);
+  // Actualizar solo la fila visualmente sin re-renderizar
+  const row = document.getElementById(`prow-${id}-${idx}`);
+  if (row) {
+    const esTachado = t.productosEliminados.includes(idx);
+    row.classList.toggle('tachado', esTachado);
+    const btn = row.querySelector('.btn-tachar');
+    if (btn) btn.textContent = esTachado ? '↩️' : '✕';
+  }
+  guardar();
+}
+
+function selChip(id, campo, valor, btn) {
+  const t = tickets.find(x=>x.id===id);
+  if (!t) return;
+  t[campo] = valor;
+  // Actualizar chips visualmente
+  const clsSel = campo === 'pago' ? 'sel-dorado' : 'sel';
+  btn.closest('.chips-row').querySelectorAll('.chip-op').forEach(c => {
+    c.classList.remove('sel','sel-dorado');
+  });
+  btn.classList.add(clsSel);
+  // Mostrar/ocultar campo de saldo
+  if (campo === 'pago') {
+    const sc = document.getElementById(`sc-${id}`);
+    if (sc) sc.classList.toggle('visible', valor === 'parcial');
+  }
+  guardar();
+}
+
+function guardarEdicion(id) {
+  const t = tickets.find(x=>x.id===id);
+  if (!t) return;
+  t.importe      = document.getElementById(`ei-importe-${id}`)?.value || null;
+  t.saldo        = document.getElementById(`ei-saldo-${id}`)?.value   || null;
+  t.observaciones= document.getElementById(`ei-obs-${id}`)?.value     || '';
+  guardar();
+  // Cerrar panel de edición y re-renderizar el ticket
+  render();
+  toast('✅ Cambios guardados');
 }
 
 // ══════════════════════════════════════════
