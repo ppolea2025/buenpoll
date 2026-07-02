@@ -627,7 +627,8 @@ function actualizarBtnWA() {
   if (lista.length===0) return;
   const lineas = lista.map(i=>`• ${i.nombre}${(i.cantidad||1)>1 ? ` × ${i.cantidad}` : ''} (${i.cat})`).join('\n');
   const msg = encodeURIComponent(`Hola, armé mi lista con el catálogo de El Buen Poll:\n\n${lineas}\n\n¿Me confirma precio y disponibilidad? Gracias.`);
-  document.getElementById('btnWALista').href = `https://wa.me/${WA_NUMERO}?text=${msg}`;
+  // Guardar URL en variable global — el botón es <button>, no <a>
+  window._waUrl = `https://wa.me/${WA_NUMERO}?text=${msg}`;
 }
 
 function toggleDrawer() {
@@ -824,8 +825,8 @@ function guardarPedidoEnTracker() {
     });
   } else {
     // Fallback para desktop o browsers sin soporte: abrir WA + descargar archivo
-    const msg = encodeURIComponent(mensajeWA);
-    document.getElementById('btnWALista').href = `https://wa.me/${WA_NUMERO}?text=${msg}`;
+    const waUrl = `https://wa.me/${WA_NUMERO}?text=${encodeURIComponent(mensajeWA)}`;
+    window.open(waUrl, '_blank');
     const blob = new Blob([jsonStr], { type: 'application/json' });
     const url  = URL.createObjectURL(blob);
     const a    = document.createElement('a');
