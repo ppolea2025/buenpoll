@@ -2,42 +2,40 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Pedidos — El Buen Poll</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Tickets de Pedido — El Buen Poll</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --verde:      #4A6741;
-  --verde-dim:  #2E4228;
-  --verde-18:   #4A674118;
-  --verde-30:   #4A674130;
-  --dorado:     #C8A84B;
-  --dorado-18:  #C8A84B18;
-  --dorado-30:  #C8A84B30;
-  --crema:      #F2EDD7;
-  --bg:         #F7F3E3;
-  --bg2:        #EEE8D0;
-  --bg3:        #E5DFC0;
-  --texto:      #2A2416;
-  --texto-dim:  #7A6E50;
-  --borde:      #D4CCAA;
-  --rojo:       #8B2020;
-  --rojo-bg:    #FFF0F0;
+  --verde:     #4A6741;
+  --verde-dim: #2E4228;
+  --verde-18:  #4A674118;
+  --verde-30:  #4A674130;
+  --dorado:    #C8A84B;
+  --dorado-18: #C8A84B18;
+  --dorado-30: #C8A84B30;
+  --crema:     #F2EDD7;
+  --bg:        #F7F3E3;
+  --bg2:       #EEE8D0;
+  --bg3:       #E5DFC0;
+  --texto:     #2A2416;
+  --texto-dim: #7A6E50;
+  --borde:     #D4CCAA;
+  --rojo:      #8B2020;
+  --rojo-bg:   #FFF0F0;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; }
-
 body {
   font-family: 'DM Sans', sans-serif;
   background: var(--bg);
   color: var(--texto);
   min-height: 100vh;
-  padding-bottom: 80px;
+  padding-bottom: 90px;
 }
 
 /* ══ HEADER ══ */
-.app-header {
+.header {
   background: var(--verde-dim);
   border-bottom: 3px solid var(--dorado);
   padding: 14px 16px 12px;
@@ -46,57 +44,42 @@ body {
   z-index: 50;
   box-shadow: 0 2px 8px #00000022;
 }
-
 .header-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
 }
-
 .header-logo { display: flex; align-items: center; gap: 10px; }
-.header-logo .ico {
+.logo-ico {
   width: 36px; height: 36px;
   background: var(--dorado);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-size: 18px; flex-shrink: 0;
 }
-.header-logo .titulo {
+.logo-txt .n {
   font-family: 'Playfair Display', serif;
-  font-size: 17px; font-weight: 700;
+  font-size: 16px; font-weight: 700;
   color: var(--crema); line-height: 1.1; display: block;
 }
-.header-logo .sub {
+.logo-txt .s {
   font-size: 10px; color: var(--dorado);
-  letter-spacing: .12em; text-transform: uppercase; display: block; margin-top: 2px;
+  letter-spacing: .12em; text-transform: uppercase; display: block; margin-top: 1px;
 }
-
-.btn-nuevo {
+.btn-pegar {
   background: var(--dorado);
   color: var(--verde-dim);
   border: none; border-radius: 20px;
-  padding: 8px 16px;
+  padding: 9px 18px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px; font-weight: 700;
   cursor: pointer;
+  display: flex; align-items: center; gap: 7px;
   white-space: nowrap;
+  transition: opacity .2s;
 }
-
-.btn-importar {
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: white;
-  border-radius: 20px;
-  padding: 8px 14px;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  transition: background .15s;
-  line-height: 1;
-}
-.btn-importar:hover { background: rgba(255,255,255,0.25); }
+.btn-pegar:hover { opacity: .85; }
 
 /* FILTROS */
 .filtros {
@@ -105,18 +88,16 @@ body {
   scrollbar-width: none;
 }
 .filtros::-webkit-scrollbar { display: none; }
-
-.filtro-btn {
+.f-btn {
   background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
+  border: 1px solid rgba(255,255,255,0.25);
   color: rgba(255,255,255,0.8);
   font-family: 'DM Sans', sans-serif;
   font-size: 12px; font-weight: 500;
   padding: 5px 14px; border-radius: 16px;
-  cursor: pointer; white-space: nowrap;
-  transition: all .15s;
+  cursor: pointer; white-space: nowrap; transition: all .15s;
 }
-.filtro-btn.active {
+.f-btn.active {
   background: var(--dorado);
   color: var(--verde-dim);
   border-color: var(--dorado);
@@ -124,8 +105,8 @@ body {
 }
 
 /* ══ STATS ══ */
-.stats-bar {
-  display: flex; gap: 0;
+.stats {
+  display: flex;
   background: var(--crema);
   border-bottom: 2px solid var(--borde);
 }
@@ -135,22 +116,32 @@ body {
   border-right: 1px solid var(--borde);
 }
 .stat:last-child { border-right: none; }
-.stat .n { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; line-height: 1; display: block; }
-.stat .l { font-size: 10px; color: var(--texto-dim); letter-spacing: .06em; text-transform: uppercase; margin-top: 3px; display: block; }
+.stat .n {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; font-weight: 700;
+  line-height: 1; display: block;
+}
+.stat .l {
+  font-size: 10px; color: var(--texto-dim);
+  letter-spacing: .06em; text-transform: uppercase;
+  margin-top: 3px; display: block;
+}
 .stat.s-total .n     { color: var(--texto); }
-.stat.s-pendiente .n { color: var(--dorado); }
-.stat.s-entregado .n { color: var(--verde); }
+.stat.s-pend .n      { color: var(--dorado); }
+.stat.s-entr .n      { color: var(--verde); }
 
 /* ══ LISTA ══ */
-.lista { padding: 14px 14px; display: flex; flex-direction: column; gap: 12px; }
+.lista { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
 
-.empty-state { text-align: center; padding: 60px 20px; color: var(--texto-dim); }
-.empty-state .e-ico { font-size: 52px; margin-bottom: 14px; opacity: .35; display: block; }
-.empty-state p { font-size: 14px; line-height: 1.7; }
-.empty-state small { font-size: 12px; opacity: .6; }
+.empty {
+  text-align: center; padding: 60px 20px; color: var(--texto-dim);
+}
+.empty .ico { font-size: 48px; opacity: .3; margin-bottom: 14px; display: block; }
+.empty p { font-size: 14px; line-height: 1.7; }
+.empty small { font-size: 12px; opacity: .6; display: block; margin-top: 6px; }
 
-/* ══ TARJETA DE PEDIDO ══ */
-.pedido-card {
+/* ══ TICKET ══ */
+.ticket {
   background: white;
   border: 1.5px solid var(--borde);
   border-radius: 14px;
@@ -158,61 +149,73 @@ body {
   box-shadow: 0 2px 8px #2A241608;
   transition: box-shadow .2s;
 }
-.pedido-card.pendiente { border-left: 4px solid var(--dorado); }
-.pedido-card.entregado { border-left: 4px solid var(--verde); opacity: .78; }
-.pedido-card.cancelado { border-left: 4px solid var(--rojo); opacity: .6; }
+.ticket.pendiente { border-left: 4px solid var(--dorado); }
+.ticket.entregado { border-left: 4px solid var(--verde); opacity: .75; }
+.ticket.cancelado { border-left: 4px solid var(--rojo); opacity: .6; }
 
-.pedido-header {
+.ticket-header {
   display: flex; align-items: center;
   justify-content: space-between;
   padding: 11px 14px 9px;
   border-bottom: 1px solid var(--borde);
   background: var(--bg);
   gap: 8px;
+  cursor: pointer;
+  user-select: none;
 }
-.pedido-folio {
+.ticket-folio {
   font-family: 'Playfair Display', serif;
-  font-size: 14px; font-weight: 700; color: var(--texto);
+  font-size: 15px; font-weight: 700; color: var(--texto);
 }
-.pedido-fecha { font-size: 11px; color: var(--texto-dim); }
-.pedido-canal {
-  font-size: 10px; color: var(--verde); background: var(--verde-18);
-  border: 1px solid var(--verde-30); padding: 2px 8px; border-radius: 10px;
-  font-weight: 600; flex-shrink: 0;
+.ticket-meta {
+  font-size: 11px; color: var(--texto-dim); margin-top: 2px;
 }
-
-.estado-badge {
+.ticket-estado {
   font-size: 11px; font-weight: 700;
   padding: 4px 10px; border-radius: 12px;
   white-space: nowrap; flex-shrink: 0;
 }
-.estado-badge.pendiente { background: var(--dorado-18); color: #6B5300; border: 1px solid var(--dorado-30); }
-.estado-badge.entregado { background: var(--verde-18); color: var(--verde-dim); border: 1px solid var(--verde-30); }
-.estado-badge.cancelado { background: var(--rojo-bg); color: var(--rojo); border: 1px solid #FFCCCC; }
+.ticket-estado.pendiente { background: var(--dorado-18); color: #6B5300; border: 1px solid var(--dorado-30); }
+.ticket-estado.entregado { background: var(--verde-18); color: var(--verde-dim); border: 1px solid var(--verde-30); }
+.ticket-estado.cancelado { background: var(--rojo-bg); color: var(--rojo); border: 1px solid #FFCCCC; }
 
-.pedido-body { padding: 10px 14px; }
-.pedido-cliente {
-  font-size: 13.5px; font-weight: 600; color: var(--texto);
-  margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
+.ticket-chevron {
+  color: var(--texto-dim); font-size: 16px;
+  flex-shrink: 0; transition: transform .2s;
 }
-.pedido-items { font-size: 12px; color: var(--texto-dim); line-height: 1.8; margin-bottom: 6px; }
-.pedido-items .prod-item { display: flex; align-items: baseline; gap: 5px; }
-.pedido-items .prod-item::before { content: '•'; color: var(--dorado); flex-shrink: 0; font-size: 14px; line-height: 1; }
-.pedido-notas {
-  font-size: 11.5px; color: var(--texto-dim); font-style: italic;
-  background: var(--bg2); border-radius: 6px; padding: 6px 10px;
-  margin-top: 6px; line-height: 1.5;
+.ticket.expandido .ticket-chevron { transform: rotate(180deg); }
+
+/* CUERPO DEL TICKET */
+.ticket-body {
+  display: none;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--borde);
+}
+.ticket.expandido .ticket-body { display: block; }
+
+.ticket-texto {
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 12px;
+  color: var(--texto);
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: var(--bg);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 12px 14px;
+  max-height: 280px;
+  overflow-y: auto;
 }
 
-/* ══ ACCIONES ══ */
-.pedido-acciones {
+/* ACCIONES */
+.ticket-acciones {
   display: flex; gap: 8px;
   padding: 10px 14px 12px;
-  border-top: 1px solid var(--borde);
-  flex-wrap: wrap; background: var(--bg);
+  background: var(--bg);
+  flex-wrap: wrap;
 }
-
-.btn-accion {
+.btn-ac {
   flex: 1; min-width: 90px; padding: 8px 10px;
   border-radius: 8px; border: none;
   font-family: 'DM Sans', sans-serif;
@@ -223,77 +226,119 @@ body {
 }
 .btn-entregar { background: var(--verde-18); color: var(--verde-dim); border: 1px solid var(--verde-30); }
 .btn-entregar:hover { background: var(--verde-30); }
+.btn-reabrir  { background: var(--bg2); color: var(--texto-dim); border: 1px solid var(--borde); }
+.btn-reabrir:hover { background: var(--bg3); }
 .btn-cancelar { background: var(--rojo-bg); color: var(--rojo); border: 1px solid #FFCCCC; }
 .btn-cancelar:hover { background: #FFCCCC; }
-.btn-wa { background: var(--dorado-18); color: #6B5300; border: 1px solid var(--dorado-30); }
-.btn-wa:hover { background: var(--dorado-30); }
-.btn-reabrir { background: var(--bg2); color: var(--texto-dim); border: 1px solid var(--borde); }
-.btn-reabrir:hover { background: var(--bg3); }
-.btn-del { background: none; border: none; color: var(--borde); cursor: pointer; font-size: 18px; flex: 0; min-width: auto; padding: 8px 6px; }
+.btn-del { background: none; border: none; color: var(--borde); cursor: pointer; font-size: 18px; flex: 0; padding: 8px 4px; }
 .btn-del:hover { color: var(--rojo); }
 
-/* ══ MODAL EDITAR NOMBRE/NOTAS ══ */
-.modal-overlay {
+/* ══ MODAL PEGAR ══ */
+.modal-bg {
   position: fixed; inset: 0;
   background: #2A241666;
   z-index: 200; display: none;
   align-items: flex-end;
 }
-.modal-overlay.abierto { display: flex; }
-
+.modal-bg.open { display: flex; }
 .modal-sheet {
   background: white;
   border-radius: 20px 20px 0 0;
   width: 100%;
-  max-height: 80vh;
+  max-height: 90vh;
   display: flex; flex-direction: column;
-  overflow: hidden;
   animation: slideUp .3s ease;
 }
 @keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
-
-.modal-drag { width: 40px; height: 4px; background: var(--borde); border-radius: 2px; margin: 12px auto 0; }
-.modal-header { padding: 14px 18px; border-bottom: 1px solid var(--borde); display: flex; align-items: center; justify-content: space-between; }
-.modal-header h3 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; }
-.modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--texto-dim); }
-.modal-body { flex: 1; overflow-y: auto; padding: 16px 18px; display: flex; flex-direction: column; gap: 14px; }
-
-.form-field { display: flex; flex-direction: column; gap: 6px; }
-.form-field label { font-size: 11px; font-weight: 600; color: var(--texto-dim); letter-spacing: .1em; text-transform: uppercase; }
-.form-input {
+.modal-drag {
+  width: 40px; height: 4px;
+  background: var(--borde); border-radius: 2px;
+  margin: 12px auto 0;
+}
+.modal-hdr {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--borde);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.modal-hdr h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 600;
+}
+.modal-hdr-close {
+  background: none; border: none;
+  font-size: 24px; cursor: pointer; color: var(--texto-dim);
+}
+.modal-body {
+  flex: 1; overflow-y: auto;
+  padding: 16px 18px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.modal-instruccion {
+  background: var(--verde-18);
+  border: 1px solid var(--verde-30);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--verde-dim);
+  line-height: 1.6;
+}
+.modal-instruccion strong { color: var(--verde-dim); }
+.modal-textarea {
   background: var(--bg);
+  border: 2px solid var(--borde);
+  border-radius: 12px;
+  padding: 14px;
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 13px;
+  color: var(--texto);
+  line-height: 1.7;
+  resize: none;
+  min-height: 200px;
+  outline: none;
+  transition: border-color .2s;
+  width: 100%;
+}
+.modal-textarea:focus { border-color: var(--verde); background: white; }
+.modal-textarea::placeholder { color: #BBB; font-family: 'DM Sans', sans-serif; font-size: 13px; }
+.modal-preview {
+  background: var(--bg2);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--texto-dim);
+  display: none;
+}
+.modal-preview.visible { display: block; }
+.modal-preview .folio-detectado { color: var(--verde-dim); font-weight: 700; font-size: 13px; }
+.modal-ftr {
+  padding: 14px 18px;
+  border-top: 1px solid var(--borde);
+  display: flex; gap: 10px;
+}
+.btn-guardar-ticket {
+  flex: 1;
+  background: var(--verde-dim);
+  color: var(--crema);
+  border: none; border-radius: 10px;
+  padding: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 700;
+  cursor: pointer;
+  border: 2px solid var(--dorado-30);
+  transition: background .15s;
+}
+.btn-guardar-ticket:hover { background: var(--verde); }
+.btn-guardar-ticket:disabled { opacity: .4; cursor: not-allowed; }
+.btn-cancelar-modal {
+  background: var(--bg2);
   border: 1.5px solid var(--borde);
   border-radius: 10px;
-  padding: 11px 14px;
+  padding: 14px 16px;
   font-family: 'DM Sans', sans-serif;
-  font-size: 14px; color: var(--texto);
-  outline: none; transition: border-color .15s; width: 100%;
+  font-size: 13px; color: var(--texto-dim);
+  cursor: pointer;
 }
-.form-input:focus { border-color: var(--verde); background: white; }
-.form-input::placeholder { color: #BBB; }
-textarea.form-input { resize: vertical; min-height: 70px; line-height: 1.6; }
-
-.modal-footer { padding: 14px 18px; border-top: 1px solid var(--borde); display: flex; gap: 10px; }
-.btn-guardar {
-  flex: 1; background: var(--verde-dim); color: var(--crema);
-  border: none; border-radius: 10px; padding: 13px;
-  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer;
-}
-.btn-guardar:hover { background: var(--verde); }
-.btn-cancelar-modal {
-  background: var(--bg2); border: 1.5px solid var(--borde);
-  border-radius: 10px; padding: 13px 16px;
-  font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--texto-dim); cursor: pointer;
-}
-
-/* BADGE NUEVO */
-.badge-nuevo {
-  background: var(--rojo); color: white;
-  font-size: 10px; font-weight: 700;
-  padding: 2px 7px; border-radius: 10px;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
 
 /* ══ FAB ══ */
 .fab {
@@ -302,9 +347,12 @@ textarea.form-input { resize: vertical; min-height: 70px; line-height: 1.6; }
   border: 2px solid var(--dorado);
   color: var(--crema);
   border-radius: 28px; padding: 13px 20px;
-  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
-  cursor: pointer; display: flex; align-items: center; gap: 8px;
-  box-shadow: 0 6px 20px #2E422840; transition: all .2s; z-index: 100;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 6px 20px #2E422840;
+  transition: all .2s; z-index: 100;
 }
 .fab:hover { background: var(--verde); transform: translateY(-2px); }
 
@@ -320,97 +368,97 @@ textarea.form-input { resize: vertical; min-height: 70px; line-height: 1.6; }
 }
 .toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* ══ NOTIFICACIÓN NUEVOS PEDIDOS ══ */
-.banner-nuevos {
-  background: var(--dorado-18); border-bottom: 1px solid var(--dorado-30);
-  padding: 10px 16px; display: none;
-  align-items: center; justify-content: space-between; gap: 10px;
+/* Badge nuevo */
+.badge-nuevo {
+  background: var(--rojo); color: white;
+  font-size: 10px; font-weight: 700;
+  padding: 2px 7px; border-radius: 10px;
+  animation: pulse 2s infinite;
 }
-.banner-nuevos.visible { display: flex; }
-.banner-nuevos p { font-size: 13px; color: #6B5300; font-weight: 500; }
-.banner-btn { background: var(--dorado); color: var(--verde-dim); border: none; border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+@media(max-width:400px) {
+  .ticket-folio { font-size: 13px; }
+}
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
-<div class="app-header">
+<div class="header">
   <div class="header-top">
     <div class="header-logo">
-      <div class="ico">🐓</div>
-      <div>
-        <span class="titulo">Pedidos</span>
-        <span class="sub">El Buen Poll · Vendedor</span>
+      <div class="logo-ico">🐓</div>
+      <div class="logo-txt">
+        <span class="n">Tickets de Pedido</span>
+        <span class="s">El Buen Poll · Vendedor</span>
       </div>
     </div>
-    <button class="btn-nuevo" onclick="abrirModal()">+ Manual</button>
-    <label class="btn-importar" title="Importar pedido JSON">
-      📥
-      <input type="file" accept=".json" onchange="importarPedido(this)" style="display:none">
-    </label>
+    <button class="btn-pegar" onclick="abrirModal()">
+      📋 Pegar pedido
+    </button>
   </div>
   <div class="filtros">
-    <button class="filtro-btn active" onclick="filtrar('todos',this)">📋 Todos</button>
-    <button class="filtro-btn" onclick="filtrar('pendiente',this)">⏳ Pendientes</button>
-    <button class="filtro-btn" onclick="filtrar('entregado',this)">✅ Entregados</button>
-    <button class="filtro-btn" onclick="filtrar('cancelado',this)">❌ Cancelados</button>
+    <button class="f-btn active" onclick="filtrar('todos',this)">📋 Todos</button>
+    <button class="f-btn" onclick="filtrar('pendiente',this)">⏳ Pendientes</button>
+    <button class="f-btn" onclick="filtrar('entregado',this)">✅ Entregados</button>
+    <button class="f-btn" onclick="filtrar('cancelado',this)">❌ Cancelados</button>
   </div>
-</div>
-
-<!-- BANNER NUEVOS PEDIDOS -->
-<div class="banner-nuevos" id="bannerNuevos">
-  <p id="bannerTxt">🛒 Hay pedidos nuevos del asesor IA</p>
-  <button class="banner-btn" onclick="cerrarBanner()">Ver ↓</button>
 </div>
 
 <!-- STATS -->
-<div class="stats-bar">
+<div class="stats">
   <div class="stat s-total">
-    <span class="n" id="statTotal">0</span>
+    <span class="n" id="stTotal">0</span>
     <span class="l">Total</span>
   </div>
-  <div class="stat s-pendiente">
-    <span class="n" id="statPend">0</span>
+  <div class="stat s-pend">
+    <span class="n" id="stPend">0</span>
     <span class="l">Pendientes</span>
   </div>
-  <div class="stat s-entregado">
-    <span class="n" id="statEntr">0</span>
+  <div class="stat s-entr">
+    <span class="n" id="stEntr">0</span>
     <span class="l">Entregados</span>
   </div>
 </div>
 
 <!-- LISTA -->
-<div class="lista" id="listaPedidos"></div>
+<div class="lista" id="listaTkts"></div>
 
 <!-- FAB -->
-<button class="fab" onclick="abrirModal()">+ Nuevo pedido</button>
+<button class="fab" onclick="abrirModal()">📋 Pegar pedido</button>
 
-<!-- MODAL EDITAR / NUEVO PEDIDO -->
-<div class="modal-overlay" id="modalOverlay" onclick="cerrarSiOverlay(event)">
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg" onclick="cerrarSiOverlay(event)">
   <div class="modal-sheet" onclick="event.stopPropagation()">
     <div class="modal-drag"></div>
-    <div class="modal-header">
-      <h3 id="modalTit">Nuevo pedido</h3>
-      <button class="modal-close" onclick="cerrarModal()">×</button>
+    <div class="modal-hdr">
+      <h3>Pegar pedido de WhatsApp</h3>
+      <button class="modal-hdr-close" onclick="cerrarModal()">×</button>
     </div>
     <div class="modal-body">
-      <input type="hidden" id="fId">
-      <div class="form-field">
-        <label>Nombre del cliente <span style="color:#C62828">*</span></label>
-        <input class="form-input" id="fCliente" placeholder="¿Cómo se llama?" type="text">
+      <div class="modal-instruccion">
+        <strong>¿Cómo usarlo?</strong><br>
+        1. En WhatsApp, mantén pulsado el mensaje del pedido<br>
+        2. Toca <strong>Copiar</strong><br>
+        3. Pégalo aquí abajo y toca <strong>Guardar ticket</strong>
       </div>
-      <div class="form-field">
-        <label>Teléfono / WhatsApp</label>
-        <input class="form-input" id="fTel" placeholder="55 1234 5678" type="tel">
-      </div>
-      <div class="form-field">
-        <label>Notas del pedido</label>
-        <textarea class="form-input" id="fNotas" placeholder="Productos, colores específicos, instrucciones especiales..."></textarea>
+      <textarea
+        class="modal-textarea"
+        id="txtPegar"
+        placeholder="Pega aquí el mensaje del pedido que llegó por WhatsApp..."
+        oninput="onTextoChange(this.value)"
+        rows="8"
+      ></textarea>
+      <div class="modal-preview" id="modalPreview">
+        Detectado: <span class="folio-detectado" id="folioDetectado"></span>
       </div>
     </div>
-    <div class="modal-footer">
+    <div class="modal-ftr">
       <button class="btn-cancelar-modal" onclick="cerrarModal()">Cancelar</button>
-      <button class="btn-guardar" onclick="guardarDesdeModal()">💾 Guardar</button>
+      <button class="btn-guardar-ticket" id="btnGuardar" onclick="guardarTicket()" disabled>
+        💾 Guardar ticket
+      </button>
     </div>
   </div>
 </div>
@@ -419,244 +467,211 @@ textarea.form-input { resize: vertical; min-height: 70px; line-height: 1.6; }
 <div class="toast" id="toast"></div>
 
 <script>
-// ══════════════════════════════════════════
-//  CONFIG
-// ══════════════════════════════════════════
-const WA_VEND    = "525516478491";
-const NEGOCIO    = "Botánica El Buen Poll";
-const STORAGE    = "buenpoll_pedidos";   // ← misma key que el asesor index.html
-const SEEN_KEY   = "buenpoll_vistos";    // para detectar pedidos nuevos
-
-// ══════════════════════════════════════════
-//  ESTADO
-// ══════════════════════════════════════════
-let pedidos      = [];
+const STORE = 'buenpoll_tickets_v1';
+let tickets = cargar();
 let filtroActual = 'todos';
-let vistos       = [];
 
 // ══════════════════════════════════════════
-//  PERSISTENCIA — misma localStorage que el asesor
+//  STORAGE
 // ══════════════════════════════════════════
-function leerPedidos() {
-  try { return JSON.parse(localStorage.getItem(STORAGE) || '[]'); } catch(e) { return []; }
-}
-function leerVistos() {
-  try { return JSON.parse(localStorage.getItem(SEEN_KEY) || '[]'); } catch(e) { return []; }
+function cargar() {
+  try { return JSON.parse(localStorage.getItem(STORE) || '[]'); } catch(e) { return []; }
 }
 function guardar() {
-  localStorage.setItem(STORAGE, JSON.stringify(pedidos));
-}
-function marcarVistos() {
-  const ids = pedidos.map(p=>p.id);
-  localStorage.setItem(SEEN_KEY, JSON.stringify(ids));
-  vistos = ids;
+  localStorage.setItem(STORE, JSON.stringify(tickets));
 }
 
 // ══════════════════════════════════════════
-//  DETECTAR PEDIDOS NUEVOS DEL ASESOR
+//  PARSEAR FOLIO Y FECHA DEL TEXTO PEGADO
 // ══════════════════════════════════════════
-function detectarNuevos() {
-  vistos = leerVistos();
-  const nuevos = pedidos.filter(p => !vistos.includes(p.id) && p.canal === 'Asesor IA');
-  if (nuevos.length > 0) {
-    const txt = nuevos.length === 1
-      ? `🛒 Llegó 1 pedido nuevo del Asesor IA`
-      : `🛒 Llegaron ${nuevos.length} pedidos nuevos del Asesor IA`;
-    document.getElementById('bannerTxt').textContent = txt;
-    document.getElementById('bannerNuevos').classList.add('visible');
+function parsearTexto(txt) {
+  // Buscar patrón de folio: BP + dígitos + PED + dígitos (ej: BP0107PED1432)
+  // También acepta folios con guiones del formato anterior (BP-0107-1432)
+  const folioMatch = txt.match(/BP[\w\-]+PED[\d]+|BP-[\d]+-[\d]+/i);
+  const folio = folioMatch ? folioMatch[0].toUpperCase() : null;
+
+  // Intentar extraer fecha del texto si viene en el mensaje
+  const fechaMatch = txt.match(/(\d{2}\/\d{2}\/\d{4}[\s,]*\d{2}:\d{2})/);
+  const fecha = fechaMatch
+    ? fechaMatch[1]
+    : new Date().toLocaleDateString('es-MX', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+
+  return { folio, fecha };
+}
+
+// ══════════════════════════════════════════
+//  MODAL
+// ══════════════════════════════════════════
+function abrirModal() {
+  document.getElementById('txtPegar').value = '';
+  document.getElementById('modalPreview').classList.remove('visible');
+  document.getElementById('btnGuardar').disabled = true;
+  document.getElementById('modalBg').classList.add('open');
+  setTimeout(() => document.getElementById('txtPegar').focus(), 300);
+}
+
+function cerrarModal() {
+  document.getElementById('modalBg').classList.remove('open');
+}
+
+function cerrarSiOverlay(e) {
+  if (e.target === document.getElementById('modalBg')) cerrarModal();
+}
+
+function onTextoChange(txt) {
+  const limpio = txt.trim();
+  const { folio } = parsearTexto(limpio);
+  const preview = document.getElementById('modalPreview');
+  const btnG    = document.getElementById('btnGuardar');
+
+  if (limpio.length > 10) {
+    btnG.disabled = false;
+    if (folio) {
+      document.getElementById('folioDetectado').textContent = folio;
+      preview.classList.add('visible');
+    } else {
+      preview.classList.remove('visible');
+    }
+  } else {
+    btnG.disabled = true;
+    preview.classList.remove('visible');
   }
 }
 
-function cerrarBanner() {
-  document.getElementById('bannerNuevos').classList.remove('visible');
-  marcarVistos();
+function guardarTicket() {
+  const txt = document.getElementById('txtPegar').value.trim();
+  if (!txt) return;
+
+  const { folio, fecha } = parsearTexto(txt);
+  const folioFinal = folio || `TKT-${Date.now()}`;
+
+  // Verificar duplicado
+  if (folio && tickets.find(t => t.folio === folioFinal)) {
+    toast(`ℹ️ El pedido ${folioFinal} ya está guardado`);
+    cerrarModal();
+    return;
+  }
+
+  tickets.push({
+    id:     Date.now().toString(),
+    folio:  folioFinal,
+    fecha,
+    texto:  txt,
+    estado: 'pendiente',
+    esNuevo: true,
+  });
+
+  guardar();
+  cerrarModal();
+  render();
+  toast(`✅ Ticket ${folioFinal} guardado`);
+}
+
+// ══════════════════════════════════════════
+//  ACCIONES
+// ══════════════════════════════════════════
+function cambiarEstado(id, estado) {
+  const t = tickets.find(x=>x.id===id);
+  if (!t) return;
+  t.estado = estado;
+  t.esNuevo = false;
+  guardar(); render();
+  const msgs = { entregado:'✅ Entregado', pendiente:'↩️ Reabierto', cancelado:'❌ Cancelado' };
+  toast(msgs[estado] || 'Actualizado');
+}
+
+function eliminar(id) {
+  if (!confirm('¿Eliminar este ticket?')) return;
+  tickets = tickets.filter(t=>t.id!==id);
+  guardar(); render();
+  toast('🗑️ Ticket eliminado');
+}
+
+function toggleExpand(id) {
+  const el = document.getElementById('tkt-'+id);
+  if (el) {
+    el.classList.toggle('expandido');
+    // Marcar como visto
+    const t = tickets.find(x=>x.id===id);
+    if (t && t.esNuevo) { t.esNuevo = false; guardar(); render(); }
+  }
+}
+
+function filtrar(estado, btn) {
+  filtroActual = estado;
+  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
 }
 
 // ══════════════════════════════════════════
 //  RENDER
 // ══════════════════════════════════════════
 function render() {
-  actualizarStats();
-  const cont = document.getElementById('listaPedidos');
-  const lista = filtroActual === 'todos'
-    ? [...pedidos].reverse()
-    : [...pedidos].filter(p=>p.estado===filtroActual).reverse();
+  // Stats
+  document.getElementById('stTotal').textContent = tickets.length;
+  document.getElementById('stPend').textContent  = tickets.filter(t=>t.estado==='pendiente').length;
+  document.getElementById('stEntr').textContent  = tickets.filter(t=>t.estado==='entregado').length;
 
-  if (lista.length === 0) {
+  const lista = filtroActual === 'todos'
+    ? [...tickets].reverse()
+    : [...tickets].filter(t=>t.estado===filtroActual).reverse();
+
+  const cont = document.getElementById('listaTkts');
+
+  if (!lista.length) {
     cont.innerHTML = `
-      <div class="empty-state">
-        <span class="e-ico">🐓</span>
+      <div class="empty">
+        <span class="ico">🐓</span>
         <p>${filtroActual==='todos'
-            ? 'Aún no hay pedidos.<br>Cuando un cliente use el Asesor IA<br>y envíe su lista, aparecerá aquí automáticamente.'
-            : 'No hay pedidos en esta categoría.'}</p>
-        <small style="margin-top:8px;display:block">También puedes agregar pedidos manuales con "+ Nuevo pedido"</small>
+          ? 'Aún no hay tickets guardados.<br>Toca <strong>"Pegar pedido"</strong> para agregar uno.'
+          : 'No hay tickets en esta categoría.'}</p>
+        <small>Copia el mensaje del pedido en WhatsApp y pégalo aquí.</small>
       </div>`;
     return;
   }
 
-  cont.innerHTML = lista.map(p => renderCard(p)).join('');
-}
+  const estadoLabel = { pendiente:'⏳ Pendiente', entregado:'✅ Entregado', cancelado:'❌ Cancelado' };
 
-function renderCard(p) {
-  const esNuevo = !vistos.includes(p.id) && p.canal === 'Asesor IA';
-  const items   = (p.items||[]).map(i =>
-    `<div class="prod-item">${i.nombre}${(i.cantidad||1)>1 ? ` × ${i.cantidad}` : ''}${i.categoria ? ` <span style="color:#BBB;font-size:10px">· ${i.categoria}</span>` : ''}</div>`
-  ).join('');
+  cont.innerHTML = lista.map(t => {
+    const acciones = t.estado === 'pendiente' ? `
+      <button class="btn-ac btn-entregar" onclick="cambiarEstado('${t.id}','entregado')">✅ Entregado</button>
+      <button class="btn-ac btn-cancelar" onclick="cambiarEstado('${t.id}','cancelado')">❌</button>
+      <button class="btn-del" onclick="eliminar('${t.id}')">🗑️</button>
+    ` : t.estado === 'entregado' ? `
+      <button class="btn-ac btn-reabrir" onclick="cambiarEstado('${t.id}','pendiente')">↩️ Reabrir</button>
+      <button class="btn-del" onclick="eliminar('${t.id}')">🗑️</button>
+    ` : `
+      <button class="btn-ac btn-reabrir" onclick="cambiarEstado('${t.id}','pendiente')">↩️ Reabrir</button>
+      <button class="btn-del" onclick="eliminar('${t.id}')">🗑️</button>
+    `;
 
-  const estadoLabel = {pendiente:'⏳ Pendiente', entregado:'✅ Entregado', cancelado:'❌ Cancelado'}[p.estado];
+    // Extraer primera línea del texto como resumen
+    const resumen = t.texto.split('\n').find(l=>l.trim()) || '';
 
-  const acciones = p.estado === 'pendiente' ? `
-    <button class="btn-accion btn-entregar" onclick="cambiarEstado('${p.id}','entregado')">✅ Entregado</button>
-    <button class="btn-accion btn-wa" onclick="enviarWA('${p.id}')">💬 WA</button>
-    <button class="btn-accion btn-cancelar" onclick="cambiarEstado('${p.id}','cancelado')">❌</button>
-    <button class="btn-accion btn-del" onclick="eliminar('${p.id}')">🗑️</button>
-  ` : p.estado === 'entregado' ? `
-    <button class="btn-accion btn-reabrir" onclick="cambiarEstado('${p.id}','pendiente')">↩️ Reabrir</button>
-    <button class="btn-accion btn-wa" onclick="enviarWA('${p.id}')">💬 WA</button>
-    <button class="btn-accion btn-del" onclick="eliminar('${p.id}')">🗑️</button>
-  ` : `
-    <button class="btn-accion btn-reabrir" onclick="cambiarEstado('${p.id}','pendiente')">↩️ Reabrir</button>
-    <button class="btn-accion btn-del" onclick="eliminar('${p.id}')">🗑️</button>
-  `;
-
-  return `
-    <div class="pedido-card ${p.estado}" id="card-${p.id}">
-      <div class="pedido-header">
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-          <span class="pedido-folio">${p.folio}</span>
-          <span class="pedido-fecha">${p.fecha}</span>
-          ${p.canal ? `<span class="pedido-canal">${p.canal}</span>` : ''}
-          ${esNuevo ? `<span class="badge-nuevo">NUEVO</span>` : ''}
+    return `
+      <div class="ticket ${t.estado}" id="tkt-${t.id}">
+        <div class="ticket-header" onclick="toggleExpand('${t.id}')">
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <span class="ticket-folio">${t.folio}</span>
+              ${t.esNuevo ? '<span class="badge-nuevo">NUEVO</span>' : ''}
+            </div>
+            <div class="ticket-meta">${t.fecha}</div>
+          </div>
+          <span class="ticket-estado ${t.estado}">${estadoLabel[t.estado]}</span>
+          <span class="ticket-chevron">▾</span>
         </div>
-        <span class="estado-badge ${p.estado}">${estadoLabel}</span>
-      </div>
-      <div class="pedido-body">
-        <div class="pedido-cliente">
-          👤 ${p.cliente}
-          ${p.tel ? `<span style="font-size:11px;color:var(--texto-dim);font-weight:400">· ${p.tel}</span>` : ''}
-          <button onclick="abrirModal('${p.id}')" style="background:none;border:none;color:var(--texto-dim);cursor:pointer;font-size:12px;padding:0 4px;margin-left:4px" title="Editar">✏️</button>
+        <div class="ticket-body">
+          <div class="ticket-texto">${escHtml(t.texto)}</div>
         </div>
-        ${items ? `<div class="pedido-items">${items}</div>` : '<div style="font-size:12px;color:var(--borde);font-style:italic">Sin detalle de productos — ver WhatsApp</div>'}
-        ${p.notas ? `<div class="pedido-notas">📝 ${p.notas}</div>` : ''}
-      </div>
-      <div class="pedido-acciones">${acciones}</div>
-    </div>`;
+        <div class="ticket-acciones">${acciones}</div>
+      </div>`;
+  }).join('');
 }
 
-function actualizarStats() {
-  document.getElementById('statTotal').textContent = pedidos.length;
-  document.getElementById('statPend').textContent  = pedidos.filter(p=>p.estado==='pendiente').length;
-  document.getElementById('statEntr').textContent  = pedidos.filter(p=>p.estado==='entregado').length;
-}
-
-// ══════════════════════════════════════════
-//  ACCIONES SOBRE PEDIDOS
-// ══════════════════════════════════════════
-function cambiarEstado(id, estado) {
-  const p = pedidos.find(x=>x.id===id); if(!p) return;
-  p.estado = estado;
-  if (estado==='entregado') p.fechaEntrega = new Date().toLocaleDateString('es-MX');
-  guardar(); render();
-  const msg = {entregado:'✅ Marcado como entregado', pendiente:'↩️ Pedido reabierto', cancelado:'❌ Pedido cancelado'};
-  toast(msg[estado]);
-}
-
-function eliminar(id) {
-  if(!confirm('¿Eliminar este pedido?')) return;
-  pedidos = pedidos.filter(p=>p.id!==id);
-  guardar(); render();
-  toast('🗑️ Pedido eliminado');
-}
-
-function enviarWA(id) {
-  const p = pedidos.find(x=>x.id===id); if(!p) return;
-  const items = (p.items||[]).map(i=>`• ${i.nombre}${(i.cantidad||1)>1?` × ${i.cantidad}`:''}`).join('\n');
-  const estadoEmoji = p.estado==='entregado' ? '✅ ENTREGADO' : '⏳ PENDIENTE';
-  const msg =
-    `🛒 *PEDIDO ${p.folio} — ${estadoEmoji}*\n` +
-    `📅 ${p.fecha}\n` +
-    `👤 *Cliente:* ${p.cliente}${p.tel?`\n📱 ${p.tel}`:''}\n` +
-    (p.canal ? `📍 Desde: ${p.canal}\n` : '') +
-    (items ? `\n*Productos:*\n${items}` : '\n(Sin detalle de productos)') +
-    (p.notas ? `\n\n📝 ${p.notas}` : '') +
-    (p.estado==='pendiente' ? `\n\n━━━━━━━━━━━━━━━\nPara confirmar entrega:\n✅ ENTREGADO ${p.folio}` : '') +
-    `\n\n_${NEGOCIO} · MAGNETIA_`;
-  // whatsapp:// abre la app directo sin página intermedia de instalación
-  window.location.href = `whatsapp://send?phone=${WA_VEND}&text=${encodeURIComponent(msg)}`;
-}
-
-function filtrar(estado, btn) {
-  filtroActual = estado;
-  document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  render();
-}
-
-// ══════════════════════════════════════════
-//  MODAL — editar nombre/notas/tel de un pedido IA
-//  (los productos ya vienen del asesor)
-// ══════════════════════════════════════════
-function abrirModal(id) {
-  document.getElementById('fId').value = id || '';
-  document.getElementById('modalTit').textContent = id ? 'Editar pedido' : 'Nuevo pedido manual';
-
-  if (id) {
-    const p = pedidos.find(x=>x.id===id);
-    document.getElementById('fCliente').value = p?.cliente === '(cliente del asesor IA)' ? '' : (p?.cliente || '');
-    document.getElementById('fTel').value     = p?.tel   || '';
-    document.getElementById('fNotas').value   = p?.notas || '';
-  } else {
-    document.getElementById('fCliente').value = '';
-    document.getElementById('fTel').value = '';
-    document.getElementById('fNotas').value = '';
-  }
-
-  document.getElementById('modalOverlay').classList.add('abierto');
-  setTimeout(()=>document.getElementById('fCliente').focus(), 300);
-}
-
-function cerrarModal() {
-  document.getElementById('modalOverlay').classList.remove('abierto');
-}
-
-function cerrarSiOverlay(e) {
-  if (e.target===document.getElementById('modalOverlay')) cerrarModal();
-}
-
-function guardarDesdeModal() {
-  const cliente = document.getElementById('fCliente').value.trim();
-  const id      = document.getElementById('fId').value;
-
-  if (id) {
-    // Editar pedido existente
-    const p = pedidos.find(x=>x.id===id);
-    if (p) {
-      if (cliente) p.cliente = cliente;
-      p.tel   = document.getElementById('fTel').value.trim();
-      p.notas = document.getElementById('fNotas').value.trim();
-    }
-    guardar(); cerrarModal(); render();
-    toast('✏️ Pedido actualizado');
-  } else {
-    // Pedido manual nuevo
-    if (!cliente) { toast('⚠️ Ingresa el nombre del cliente'); return; }
-    const existentes = pedidos.map(p=>parseInt((p.folio||'#0').replace('#',''))||0);
-    const ultimo = existentes.length > 0 ? Math.max(...existentes) : 0;
-    const folio  = `#${String(ultimo+1).padStart(4,'0')}`;
-    pedidos.push({
-      id:      Date.now().toString(),
-      folio,
-      fecha:   new Date().toLocaleDateString('es-MX',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
-      cliente,
-      tel:     document.getElementById('fTel').value.trim(),
-      notas:   document.getElementById('fNotas').value.trim(),
-      canal:   'Manual',
-      items:   [],
-      estado:  'pendiente',
-    });
-    guardar(); cerrarModal(); render();
-    toast('✅ Pedido registrado');
-  }
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
 // ══════════════════════════════════════════
@@ -670,78 +685,9 @@ function toast(msg) {
 }
 
 // ══════════════════════════════════════════
-//  POLLING — detectar pedidos nuevos cada 30s
-//  (para cuando el vendedor tiene el tracker abierto
-//   y un cliente hace un pedido desde el asesor)
-// ══════════════════════════════════════════
-function recargarDesdeStorage() {
-  const anterior = pedidos.length;
-  pedidos = leerPedidos();
-  if (pedidos.length > anterior) {
-    render();
-    detectarNuevos();
-  }
-}
-
-// ══════════════════════════════════════════
-//  IMPORTAR PEDIDO DESDE ARCHIVO JSON
-// ══════════════════════════════════════════
-function importarPedido(input) {
-  const file = input.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    try {
-      const pedido = JSON.parse(e.target.result);
-
-      // Validar que sea un pedido válido
-      if (!pedido.folio || !pedido.items) {
-        toast('⚠️ Archivo no válido — no es un pedido de El Buen Poll');
-        input.value = '';
-        return;
-      }
-
-      // Verificar si ya existe este folio
-      if (pedidos.find(p => p.folio === pedido.folio)) {
-        toast(`ℹ️ El pedido ${pedido.folio} ya está en el tracker`);
-        input.value = '';
-        return;
-      }
-
-      // Asegurarse de que el estado sea pendiente al importar
-      pedido.estado = pedido.estado || 'pendiente';
-      pedido.canal  = pedido.canal  || 'Asesor IA';
-
-      pedidos.push(pedido);
-      guardar();
-      render();
-      toast(`✅ Pedido ${pedido.folio} importado correctamente`);
-
-    } catch(err) {
-      toast('⚠️ Error al leer el archivo — verifica que sea un JSON válido');
-    }
-    // Limpiar el input para permitir importar el mismo archivo de nuevo
-    input.value = '';
-  };
-
-  reader.readAsText(file);
-}
-
-// ══════════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════════
-pedidos = leerPedidos();
 render();
-detectarNuevos();
-
-// Revisar nuevos pedidos cada 30 segundos
-setInterval(recargarDesdeStorage, 30000);
-
-// También recargar al volver a la pestaña
-document.addEventListener('visibilitychange', () => {
-  if (!document.hidden) { recargarDesdeStorage(); }
-});
 </script>
 </body>
 </html>

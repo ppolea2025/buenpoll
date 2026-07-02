@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Botánica El Buen Poll — Encuentra tu producto</title>
+<title>Botánica El Buen Pollo — Encuentra tu producto</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -30,8 +30,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 /* HEADER */
 header { background: var(--verde-dim); border-bottom: 3px solid var(--dorado); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
 .logo-area { display: flex; align-items: center; gap: 12px; }
-.logo-circle { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; background: transparent; }
-.logo-circle img { width: 100%; height: 100%; object-fit: contain; }
+.logo-circle { width: 42px; height: 42px; background: var(--dorado); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
 .logo-text .nombre { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--crema); line-height: 1.1; display: block; }
 .logo-text .sub { font-size: 10px; color: var(--dorado); letter-spacing: .14em; text-transform: uppercase; display: block; margin-top: 2px; }
 .lista-badge { background: var(--dorado); color: #fff; font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 20px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: opacity .2s; border: none; font-family: 'DM Sans', sans-serif; }
@@ -155,20 +154,6 @@ header { background: var(--verde-dim); border-bottom: 3px solid var(--dorado); p
 .error-box { background: #FFF3CD; border: 1px solid #FFECB5; border-radius: 12px; padding: 20px; text-align: center; }
 .error-box p { font-size: 13px; color: #856404; line-height: 1.6; }
 
-
-/* BUSCADOR STICKY */
-.search-bar { background: var(--verde-dim); border-bottom: 1px solid #1E3018; padding: 7px 16px; position: sticky; top: 67px; z-index: 99; }
-.search-inner { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 7px 13px; }
-.search-inner input { background: transparent; border: none; outline: none; color: var(--crema); font-family: 'DM Sans', sans-serif; font-size: 13.5px; flex: 1; }
-.search-inner input::placeholder { color: rgba(242,237,215,0.4); }
-.search-ico { color: rgba(242,237,215,0.5); font-size: 14px; flex-shrink: 0; }
-.btn-clear-s { background: none; border: none; color: rgba(242,237,215,0.5); cursor: pointer; font-size: 20px; line-height: 1; padding: 0; display: none; }
-.btn-clear-s.visible { display: block; }
-/* CANTIDAD */
-.qty-sel { display:flex;align-items:center;gap:0;border:1.5px solid var(--borde);border-radius:8px;overflow:hidden;flex-shrink:0; }
-.qty-btn { background:var(--bg2);border:none;color:var(--texto);font-size:18px;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;font-family:'DM Sans',sans-serif;line-height:1; }
-.qty-btn:hover { background:var(--bg3); }
-.qty-val { min-width:32px;text-align:center;font-size:13px;font-weight:700;color:var(--texto);padding:0 4px; }
 /* CTA FINAL */
 .cta-strip { background: linear-gradient(135deg, var(--verde-dim), #2A3E27); border: 2px solid var(--dorado-30); border-radius: 16px; padding: 22px; margin-top: 24px; position: relative; overflow: hidden; }
 .cta-strip::before { content:''; position:absolute; top:0;left:0;right:0; height:2px; background:linear-gradient(90deg,transparent,var(--dorado),transparent); }
@@ -196,9 +181,9 @@ footer span { color: var(--dorado); opacity: .7; }
 
 <header>
   <div class="logo-area">
-    <div class="logo-circle"><img src="./logo.png" alt="El Buen Poll"></div>
+    <div class="logo-circle">🐓</div>
     <div class="logo-text">
-      <span class="nombre">El Buen Poll</span>
+      <span class="nombre">El Buen Pollo</span>
       <span class="sub">Encuentra tu producto</span>
     </div>
   </div>
@@ -207,18 +192,8 @@ footer span { color: var(--dorado); opacity: .7; }
   </button>
 </header>
 
-<!-- BUSCADOR STICKY -->
-<div class="search-bar">
-  <div class="search-inner">
-    <span class="search-ico">🔍</span>
-    <input type="text" id="srchInput" placeholder="Buscar producto…" oninput="onBuscar(this.value)" autocomplete="off">
-    <button class="btn-clear-s" id="srchClear" onclick="limpiarBusqueda()">×</button>
-  </div>
-</div>
-
 <div class="hero">
   <div class="hero-eyebrow">Mercado de Sonora · Local 294 · CDMX</div>
-  <img src="./logo.png" alt="Botánica El Buen Poll" style="width:110px;height:110px;object-fit:contain;margin:0 auto 12px;display:block;filter:drop-shadow(0 4px 12px #00000040);">
   <h1>¿Qué estás<br><em>buscando hoy?</em></h1>
   <p>Te guío paso a paso hasta el producto que necesitas. Sin perderme, sin inventar.</p>
 </div>
@@ -252,7 +227,7 @@ footer span { color: var(--dorado); opacity: .7; }
   </div>
   <div class="lista-items-wrap" id="drawerItems"></div>
   <div class="lista-footer-btns">
-    <a class="btn-wa-lista" id="btnWALista" href="#" target="_blank" onclick="guardarEnTracker()">
+    <a class="btn-wa-lista" id="btnWALista" href="#" target="_blank" onclick="guardarPedidoEnTracker()">
       <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Enviar pedido al vendedor
     </a>
@@ -266,9 +241,9 @@ footer span { color: var(--dorado); opacity: .7; }
   <button class="btn-ver" onclick="toggleDrawer()">Ver lista →</button>
 </div>
 
-<footer style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:14px 20px">
-  <span>Botánica El Buen Poll · Local 294 · <span>MAGNETIA</span></span>
-  <a href="./tracker-pedidos.html" style="background:var(--dorado-18);border:1px solid var(--dorado-30);color:var(--dorado);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;padding:5px 12px;border-radius:12px;text-decoration:none;">Panel vendedor →</a>
+<footer>
+  Botánica El Buen Pollo · Mercado de Sonora Local 294 · CDMX<br>
+  <span>Tecnología MAGNETIA · IMMERSIO Software</span>
 </footer>
 
 <script>
@@ -375,7 +350,7 @@ function renderSubcats(catNombre) {
   const main = document.getElementById('mainContent');
   main.innerHTML = `
     <div class="breadcrumb">
-      <span onclick="renderCategorias()" title="Inicio" style="font-size:18px;color:var(--dorado);cursor:pointer">🏠</span>
+      <span onclick="renderCategorias()">Inicio</span>
       <span class="sep">›</span>
       <span class="actual">${cat.nombre}</span>
     </div>
@@ -398,7 +373,7 @@ function renderSubcats(catNombre) {
         </div>`).join('')}
     </div>
     ${renderCTA()}`;
-  // sin scroll forzado
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function renderProductos(catNombre, subNombre) {
@@ -411,11 +386,10 @@ function renderProductos(catNombre, subNombre) {
   const prodsHTML = sub.productos.map(p => {
     const enLista = lista.find(i=>i.nombre===p.nombre);
     const fotoBtn = p.foto ? `<button class="btn-foto" onclick="verFoto('${escapar(p.foto)}','${escapar(p.nombre)}')">🖼️ Ver foto</button>` : '';
-    const qty = enLista?.cantidad || 1;
     const addBtn  = p.agotado
       ? `<button class="btn-add" disabled>Sin stock</button>`
       : enLista
-        ? `<div class="qty-sel"><button class="qty-btn" onclick="cambiarCant('${escapar(p.nombre)}',-1)">−</button><span class="qty-val" id="qv-${escapar(p.nombre)}">${qty}</span><button class="qty-btn" onclick="cambiarCant('${escapar(p.nombre)}',1)">+</button></div><button class="btn-add" style="background:var(--bg3);color:var(--texto-dim);font-size:11px" onclick="quitarNombre('${escapar(p.nombre)}')">✕ Quitar</button>`
+        ? `<button class="btn-add" disabled>✓ En lista</button>`
         : `<button class="btn-add" onclick="agregarALista('${escapar(p.nombre)}','${escapar(cat.nombre)}','${escapar(sub.nombre)}',this)">+ Agregar</button>`;
 
     return `
@@ -441,7 +415,7 @@ function renderProductos(catNombre, subNombre) {
 
   main.innerHTML = `
     <div class="breadcrumb">
-      <span onclick="renderCategorias()" title="Inicio" style="font-size:18px;color:var(--dorado);cursor:pointer">🏠</span>
+      <span onclick="renderCategorias()">Inicio</span>
       <span class="sep">›</span>
       <span onclick="renderSubcats('${escapar(cat.nombre)}')">${cat.nombre}</span>
       <span class="sep">›</span>
@@ -456,7 +430,7 @@ function renderProductos(catNombre, subNombre) {
       ${prodsHTML}
     </div>
     ${renderCTA()}`;
-  // sin scroll forzado
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function renderCTA() {
@@ -485,35 +459,19 @@ function selSub(cat, sub) { renderProductos(cat, sub); }
 // ══════════════════════════════════════════
 function agregarALista(nombre, cat, sub, btn) {
   if (lista.find(i=>i.nombre===nombre)) return;
-  lista.push({ nombre, cat, sub, cantidad: 1 });
+  lista.push({ nombre, cat, sub });
   actualizarUI();
-  // Reemplazar botón por selector de cantidad sin mover la pantalla
-  const card = document.getElementById('prod-'+escapar(nombre));
-  if (card) {
-    const acc = card.querySelector('.prod-actions');
-    if (acc) {
-      const foto = acc.querySelector('.btn-foto')?.outerHTML||'';
-      acc.innerHTML = `<div class="qty-sel"><button class="qty-btn" onclick="cambiarCant('${escapar(nombre)}',-1)">−</button><span class="qty-val" id="qv-${escapar(nombre)}">1</span><button class="qty-btn" onclick="cambiarCant('${escapar(nombre)}',1)">+</button></div><button class="btn-add" style="background:var(--bg3);color:var(--texto-dim);font-size:11px" onclick="quitarNombre('${escapar(nombre)}')">✕ Quitar</button>${foto}`;
-    }
-  }
+  // Feedback visual en el botón
+  btn.textContent = '✓ Agregado';
+  btn.disabled = true;
 }
 
 function quitarDeLista(i) {
-  const nombre = lista[i]?.nombre;
-  const catN   = lista[i]?.cat||'';
-  const subN   = lista[i]?.sub||'';
   lista.splice(i,1);
   actualizarUI();
   renderDrawer();
-  // Restaurar botón sin re-renderizar la pantalla
-  const card = document.getElementById('prod-'+escapar(nombre));
-  if (card) {
-    const acc = card.querySelector('.prod-actions');
-    if (acc) {
-      const foto = acc.querySelector('.btn-foto')?.outerHTML||'';
-      acc.innerHTML = `<button class="btn-add" onclick="agregarALista('${escapar(nombre)}','${escapar(catN)}','${escapar(subN)}',this)">+ Agregar</button>${foto}`;
-    }
-  }
+  // Refrescar botones en la vista actual
+  if (catActual && subActual) renderProductos(catActual.nombre, subActual.nombre);
 }
 
 function limpiarLista() {
@@ -544,8 +502,8 @@ function renderDrawer() {
   }
   cont.innerHTML = lista.map((item,i) => `
     <div class="lista-item-row">
-      <div style="flex:1">
-        <div class="li-nombre">${item.nombre}${(item.cantidad||1)>1?' × '+item.cantidad:''}</div>
+      <div>
+        <div class="li-nombre">${item.nombre}</div>
         <div class="li-cat">${item.cat} › ${item.sub}</div>
       </div>
       <button class="li-del" onclick="quitarDeLista(${i})">×</button>
@@ -554,9 +512,51 @@ function renderDrawer() {
 
 function actualizarBtnWA() {
   if (lista.length===0) return;
-  const lineas = lista.map(i=>`• ${i.nombre}${(i.cantidad||1)>1?' × '+i.cantidad:''} (${i.cat})`).join('\n');
+  const lineas = lista.map(i=>`• ${i.nombre} (${i.cat})`).join('\n');
   const msg = encodeURIComponent(`Hola, armé mi lista con el catálogo de El Buen Poll:\n\n${lineas}\n\n¿Me confirma precio y disponibilidad? Gracias.`);
   document.getElementById('btnWALista').href = `https://wa.me/${WA_NUMERO}?text=${msg}`;
+}
+
+// ══════════════════════════════════════════
+//  GUARDAR PEDIDO EN localStorage → Tracker
+//  Se llama al tocar "Enviar al vendedor"
+// ══════════════════════════════════════════
+function guardarPedidoEnTracker() {
+  if (lista.length === 0) return;
+
+  // Leer pedidos existentes
+  let pedidos = [];
+  try { pedidos = JSON.parse(localStorage.getItem('buenpoll_pedidos') || '[]'); } catch(e) {}
+
+  // Generar folio correlativo
+  const ultimoFolio = pedidos.length > 0
+    ? Math.max(...pedidos.map(p => parseInt((p.folio||'#0').replace('#','')) || 0))
+    : 0;
+  const folio = `#${String(ultimoFolio + 1).padStart(4,'0')}`;
+
+  // Construir el pedido
+  const nuevoPedido = {
+    id:      Date.now().toString(),
+    folio,
+    fecha:   new Date().toLocaleDateString('es-MX', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+    cliente: '(cliente del asesor IA)',
+    tel:     '',
+    canal:   'Asesor IA',
+    notas:   '',
+    estado:  'pendiente',
+    items:   lista.map(i => ({ nombre: i.nombre, categoria: i.cat, cantidad: 1 })),
+  };
+
+  pedidos.push(nuevoPedido);
+  localStorage.setItem('buenpoll_pedidos', JSON.stringify(pedidos));
+
+  // Feedback visual sutil
+  const btn = document.getElementById('btnWALista');
+  if (btn) {
+    const textoOriginal = btn.innerHTML;
+    btn.innerHTML = '✓ Pedido guardado en tracker';
+    setTimeout(() => { btn.innerHTML = textoOriginal; }, 2500);
+  }
 }
 
 function toggleDrawer() {
@@ -608,126 +608,6 @@ async function iniciar() {
       </div>`;
   }
 }
-
-// ══════════════════════════════════════════
-//  BUSCADOR
-// ══════════════════════════════════════════
-let _busTimer = null;
-let _enBusqueda = false;
-
-function normTxt(t) {
-  return (t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
-}
-function onBuscar(q) {
-  clearTimeout(_busTimer);
-  document.getElementById('srchClear').classList.toggle('visible', q.length > 0);
-  if (!q.trim()) { limpiarBusqueda(); return; }
-  _busTimer = setTimeout(() => buscar(q), 300);
-}
-function limpiarBusqueda() {
-  document.getElementById('srchInput').value = '';
-  document.getElementById('srchClear').classList.remove('visible');
-  if (_enBusqueda) {
-    _enBusqueda = false;
-    if (subActual) renderProductos(catActual.nombre, subActual.nombre);
-    else if (catActual) renderSubcats(catActual.nombre);
-    else renderCategorias();
-  }
-}
-function buscar(q) {
-  _enBusqueda = true;
-  const qn = normTxt(q);
-  const res = [];
-  for (const cat of catalogo)
-    for (const sub of cat.subcats)
-      for (const p of sub.productos)
-        if (normTxt(p.nombre).includes(qn) || normTxt(p.descripcion).includes(qn))
-          res.push({p, cat, sub});
-
-  const main = document.getElementById('mainContent');
-  if (!res.length) {
-    main.innerHTML = `<div style="text-align:center;padding:40px 20px;color:var(--texto-dim)"><div style="font-size:40px;opacity:.3;margin-bottom:12px">🔍</div><p>Sin resultados para "<strong>${q}</strong>"</p></div>${renderCTA()}`;
-    return;
-  }
-  const html = res.map(({p, cat}) => {
-    const enLista = lista.find(i=>i.nombre===p.nombre);
-    const fotoBtn = p.foto ? `<button class="btn-foto" onclick="verFoto('${escapar(p.foto)}','${escapar(p.nombre)}')">🖼️ Ver foto</button>` : '';
-    const qty = enLista?.cantidad || 1;
-    const addBtn = p.agotado
-      ? `<button class="btn-add" disabled>Sin stock</button>`
-      : enLista
-        ? `<div class="qty-sel"><button class="qty-btn" onclick="cambiarCant('${escapar(p.nombre)}',-1)">−</button><span class="qty-val" id="qv-${escapar(p.nombre)}">${qty}</span><button class="qty-btn" onclick="cambiarCant('${escapar(p.nombre)}',1)">+</button></div><button class="btn-add" style="background:var(--bg3);color:var(--texto-dim);font-size:11px" onclick="quitarNombre('${escapar(p.nombre)}')">✕</button>`
-        : `<button class="btn-add" onclick="agregarALista('${escapar(p.nombre)}','${escapar(cat.nombre)}','',this)">+ Agregar</button>`;
-    return `<div class="prod-card ${p.agotado?'agotado':''}" id="prod-${escapar(p.nombre)}">
-      <div class="prod-main">
-        <div class="prod-foto-wrap">${p.foto?`<img src="${IMGS_BASE}${p.foto}" alt="${p.nombre}" onerror="this.parentElement.innerHTML='<span class=prod-foto-placeholder>${cat.icono}</span>'">`:`<span class="prod-foto-placeholder">${cat.icono}</span>`}</div>
-        <div class="prod-info"><div class="prod-nombre">${p.nombre}</div><div class="prod-desc" style="font-size:10px;color:var(--dorado)">${cat.nombre}</div><div class="prod-desc">${p.descripcion}</div><div class="prod-precio">Confirmar precio con vendedor</div></div>
-      </div>
-      <div class="prod-actions">${addBtn} ${fotoBtn}</div>
-    </div>`;
-  }).join('');
-  main.innerHTML = `<div class="section-label" style="margin-bottom:12px">${res.length} resultado${res.length!==1?'s':''} para "<strong>${q}</strong>"</div><div style="display:flex;flex-direction:column;gap:10px">${html}</div>${renderCTA()}`;
-}
-
-// ══════════════════════════════════════════
-//  CANTIDAD
-// ══════════════════════════════════════════
-function cambiarCant(nombre, delta) {
-  const item = lista.find(i=>i.nombre===nombre);
-  if (!item) return;
-  item.cantidad = Math.max(1, (item.cantidad||1) + delta);
-  const sp = document.getElementById('qv-'+escapar(nombre));
-  if (sp) sp.textContent = item.cantidad;
-  actualizarUI();
-}
-function quitarNombre(nombre) {
-  const idx = lista.findIndex(i=>i.nombre===nombre);
-  if (idx === -1) return;
-  const catN = catActual?.nombre||'', subN = subActual?.nombre||'';
-  lista.splice(idx,1);
-  actualizarUI();
-  renderDrawer();
-  const card = document.getElementById('prod-'+escapar(nombre));
-  if (card) {
-    const acc = card.querySelector('.prod-actions');
-    if (acc) {
-      const foto = acc.querySelector('.btn-foto')?.outerHTML||'';
-      acc.innerHTML = `<button class="btn-add" onclick="agregarALista('${escapar(nombre)}','${escapar(catN)}','${escapar(subN)}',this)">+ Agregar</button>${foto}`;
-    }
-  }
-}
-
-// ══════════════════════════════════════════
-//  GUARDAR EN TRACKER (localStorage)
-// ══════════════════════════════════════════
-function guardarEnTracker() {
-  if (lista.length === 0) return;
-  const n = new Date();
-  const dd  = String(n.getDate()).padStart(2,'0');
-  const mm  = String(n.getMonth()+1).padStart(2,'0');
-  const hh  = String(n.getHours()).padStart(2,'0');
-  const min = String(n.getMinutes()).padStart(2,'0');
-  const folio = `BP${dd}${mm}PED${hh}${min}`;
-
-  const pedido = {
-    id:     Date.now().toString(),
-    folio,
-    fecha:  n.toLocaleDateString('es-MX',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
-    cliente:'(cliente del Asesor IA)',
-    canal:  'Asesor IA',
-    estado: 'pendiente',
-    items:  lista.map(i=>({nombre:i.nombre,categoria:i.cat,cantidad:i.cantidad||1})),
-  };
-  let pedidos = [];
-  try { pedidos = JSON.parse(localStorage.getItem('buenpoll_pedidos')||'[]'); } catch(e) {}
-  pedidos.push(pedido);
-  localStorage.setItem('buenpoll_pedidos', JSON.stringify(pedidos));
-  // Actualizar también el texto del mensaje WA con folio y cantidades
-  const lineas = lista.map(i=>`• ${i.nombre}${(i.cantidad||1)>1?' × '+i.cantidad:''} (${i.cat})`).join('\n');
-  const msg = encodeURIComponent(`🛒 *PEDIDO ${folio}*\n*Botánica El Buen Poll*\n\n*Mi lista:*\n${lineas}\n\n¿Me confirma precio y disponibilidad? Gracias.`);
-  document.getElementById('btnWALista').href = `https://wa.me/${WA_NUMERO}?text=${msg}`;
-}
-
 
 iniciar();
 </script>
