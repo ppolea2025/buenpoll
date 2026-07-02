@@ -38,19 +38,6 @@ header { background: var(--verde-dim); border-bottom: 3px solid var(--dorado); p
 .lista-badge:hover { opacity: .85; }
 .lista-badge .n { background: #fff; color: var(--verde-dim); border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
 
-/* BUSCADOR STICKY */
-.search-bar { background: var(--verde-dim); border-bottom: 1px solid #1E3018; padding: 7px 16px; position: sticky; top: 67px; z-index: 99; }
-.search-inner { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 7px 13px; }
-.search-inner input { background: transparent; border: none; outline: none; color: var(--crema); font-family: 'DM Sans', sans-serif; font-size: 13.5px; flex: 1; }
-.search-inner input::placeholder { color: rgba(242,237,215,0.4); }
-.search-ico { color: rgba(242,237,215,0.5); font-size: 14px; flex-shrink: 0; }
-.btn-clear-search { background: none; border: none; color: rgba(242,237,215,0.5); cursor: pointer; font-size: 20px; line-height: 1; padding: 0; display: none; }
-.btn-clear-search.visible { display: block; }
-.search-results-grid { display: flex; flex-direction: column; gap: 10px; }
-.search-empty { text-align: center; padding: 40px 20px; color: var(--texto-dim); }
-.search-empty .se-ico { font-size: 44px; margin-bottom: 12px; opacity: .35; display: block; }
-.search-empty p { font-size: 14px; line-height: 1.7; }
-
 /* HERO */
 .hero { background: linear-gradient(160deg, var(--verde-dim), #3A5235); padding: 40px 24px 36px; text-align: center; border-bottom: 3px solid var(--dorado); position: relative; overflow: hidden; }
 .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 30% 50%, #fff1 0%, transparent 60%); pointer-events:none; }
@@ -168,12 +155,20 @@ header { background: var(--verde-dim); border-bottom: 3px solid var(--dorado); p
 .error-box { background: #FFF3CD; border: 1px solid #FFECB5; border-radius: 12px; padding: 20px; text-align: center; }
 .error-box p { font-size: 13px; color: #856404; line-height: 1.6; }
 
-/* SELECTOR CANTIDAD */
+
+/* BUSCADOR STICKY */
+.search-bar { background: var(--verde-dim); border-bottom: 1px solid #1E3018; padding: 7px 16px; position: sticky; top: 67px; z-index: 99; }
+.search-inner { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 7px 13px; }
+.search-inner input { background: transparent; border: none; outline: none; color: var(--crema); font-family: 'DM Sans', sans-serif; font-size: 13.5px; flex: 1; }
+.search-inner input::placeholder { color: rgba(242,237,215,0.4); }
+.search-ico { color: rgba(242,237,215,0.5); font-size: 14px; flex-shrink: 0; }
+.btn-clear-s { background: none; border: none; color: rgba(242,237,215,0.5); cursor: pointer; font-size: 20px; line-height: 1; padding: 0; display: none; }
+.btn-clear-s.visible { display: block; }
+/* CANTIDAD */
 .qty-sel { display:flex;align-items:center;gap:0;border:1.5px solid var(--borde);border-radius:8px;overflow:hidden;flex-shrink:0; }
 .qty-btn { background:var(--bg2);border:none;color:var(--texto);font-size:18px;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;font-family:'DM Sans',sans-serif;line-height:1; }
 .qty-btn:hover { background:var(--bg3); }
 .qty-val { min-width:32px;text-align:center;font-size:13px;font-weight:700;color:var(--texto);padding:0 4px; }
-
 /* CTA FINAL */
 .cta-strip { background: linear-gradient(135deg, var(--verde-dim), #2A3E27); border: 2px solid var(--dorado-30); border-radius: 16px; padding: 22px; margin-top: 24px; position: relative; overflow: hidden; }
 .cta-strip::before { content:''; position:absolute; top:0;left:0;right:0; height:2px; background:linear-gradient(90deg,transparent,var(--dorado),transparent); }
@@ -216,8 +211,8 @@ footer span { color: var(--dorado); opacity: .7; }
 <div class="search-bar">
   <div class="search-inner">
     <span class="search-ico">🔍</span>
-    <input type="text" id="searchInput" placeholder="Buscar producto en el catálogo…" oninput="onBuscar(this.value)" autocomplete="off">
-    <button class="btn-clear-search" id="btnClearSearch" onclick="limpiarBusqueda()">×</button>
+    <input type="text" id="srchInput" placeholder="Buscar producto…" oninput="onBuscar(this.value)" autocomplete="off">
+    <button class="btn-clear-s" id="srchClear" onclick="limpiarBusqueda()">×</button>
   </div>
 </div>
 
@@ -257,10 +252,10 @@ footer span { color: var(--dorado); opacity: .7; }
   </div>
   <div class="lista-items-wrap" id="drawerItems"></div>
   <div class="lista-footer-btns">
-    <button class="btn-wa-lista" id="btnWALista" onclick="guardarPedidoEnTracker()">
+    <a class="btn-wa-lista" id="btnWALista" href="#" target="_blank" onclick="guardarEnTracker()">
       <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Enviar pedido al vendedor
-    </button>
+    </a>
     <button class="btn-limpiar-lista" onclick="limpiarLista()">🗑️</button>
   </div>
 </div>
@@ -272,8 +267,8 @@ footer span { color: var(--dorado); opacity: .7; }
 </div>
 
 <footer style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:14px 20px">
-  <span>Botánica El Buen Poll · Local 294 · <span>MAGNETIA · IMMERSIO</span></span>
-  <a href="./tracker-pedidos.html" style="background:var(--dorado-18);border:1px solid var(--dorado-30);color:var(--dorado);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;padding:5px 12px;border-radius:12px;text-decoration:none;letter-spacing:.04em;">Panel vendedor →</a>
+  <span>Botánica El Buen Poll · Local 294 · <span>MAGNETIA</span></span>
+  <a href="./tracker-pedidos.html" style="background:var(--dorado-18);border:1px solid var(--dorado-30);color:var(--dorado);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;padding:5px 12px;border-radius:12px;text-decoration:none;">Panel vendedor →</a>
 </footer>
 
 <script>
@@ -380,7 +375,7 @@ function renderSubcats(catNombre) {
   const main = document.getElementById('mainContent');
   main.innerHTML = `
     <div class="breadcrumb">
-      <span onclick="renderCategorias()" title="Inicio" style="font-size:18px;color:var(--dorado)">🏠</span>
+      <span onclick="renderCategorias()" title="Inicio" style="font-size:18px;color:var(--dorado);cursor:pointer">🏠</span>
       <span class="sep">›</span>
       <span class="actual">${cat.nombre}</span>
     </div>
@@ -403,7 +398,7 @@ function renderSubcats(catNombre) {
         </div>`).join('')}
     </div>
     ${renderCTA()}`;
-  // Sin scroll forzado — el usuario no pierde su posición
+  // sin scroll forzado
 }
 
 function renderProductos(catNombre, subNombre) {
@@ -420,12 +415,7 @@ function renderProductos(catNombre, subNombre) {
     const addBtn  = p.agotado
       ? `<button class="btn-add" disabled>Sin stock</button>`
       : enLista
-        ? `<div class="qty-sel">
-             <button class="qty-btn" onclick="cambiarCantidad('${escapar(p.nombre)}',-1)">−</button>
-             <span class="qty-val" id="qty-${escapar(p.nombre)}">${qty}</span>
-             <button class="qty-btn" onclick="cambiarCantidad('${escapar(p.nombre)}',1)">+</button>
-           </div>
-           <button class="btn-add" style="background:var(--bg3);color:var(--texto-dim);font-size:11px" onclick="quitarPorNombre('${escapar(p.nombre)}')">✕ Quitar</button>`
+        ? `<div class="qty-sel"><button class="qty-btn" onclick="cambiarCant('${escapar(p.nombre)}',-1)">−</button><span class="qty-val" id="qv-${escapar(p.nombre)}">${qty}</span><button class="qty-btn" onclick="cambiarCant('${escapar(p.nombre)}',1)">+</button></div><button class="btn-add" style="background:var(--bg3);color:var(--texto-dim);font-size:11px" onclick="quitarNombre('${escapar(p.nombre)}')">✕ Quitar</button>`
         : `<button class="btn-add" onclick="agregarALista('${escapar(p.nombre)}','${escapar(cat.nombre)}','${escapar(sub.nombre)}',this)">+ Agregar</button>`;
 
     return `
@@ -451,7 +441,7 @@ function renderProductos(catNombre, subNombre) {
 
   main.innerHTML = `
     <div class="breadcrumb">
-      <span onclick="renderCategorias()" title="Inicio" style="font-size:18px;color:var(--dorado)">🏠</span>
+      <span onclick="renderCategorias()" title="Inicio" style="font-size:18px;color:var(--dorado);cursor:pointer">🏠</span>
       <span class="sep">›</span>
       <span onclick="renderSubcats('${escapar(cat.nombre)}')">${cat.nombre}</span>
       <span class="sep">›</span>
@@ -466,7 +456,7 @@ function renderProductos(catNombre, subNombre) {
       ${prodsHTML}
     </div>
     ${renderCTA()}`;
-  // Sin scroll forzado — el usuario permanece donde estaba
+  // sin scroll forzado
 }
 
 function renderCTA() {
@@ -497,76 +487,31 @@ function agregarALista(nombre, cat, sub, btn) {
   if (lista.find(i=>i.nombre===nombre)) return;
   lista.push({ nombre, cat, sub, cantidad: 1 });
   actualizarUI();
-  // Reemplazar el botón con el selector de cantidad sin re-renderizar la pantalla
-  const card = document.getElementById(`prod-${escapar(nombre)}`);
+  // Reemplazar botón por selector de cantidad sin mover la pantalla
+  const card = document.getElementById('prod-'+escapar(nombre));
   if (card) {
-    const acciones = card.querySelector('.prod-actions');
-    if (acciones) {
-      const fotoBtn = acciones.querySelector('.btn-foto')?.outerHTML || '';
-      acciones.innerHTML = `
-        <div class="qty-sel">
-          <button class="qty-btn" onclick="cambiarCantidad('${escapar(nombre)}',-1)">−</button>
-          <span class="qty-val" id="qty-${escapar(nombre)}">1</span>
-          <button class="qty-btn" onclick="cambiarCantidad('${escapar(nombre)}',1)">+</button>
-        </div>
-        <button class="btn-add" style="background:var(--bg3);color:var(--texto-dim);font-size:11px" onclick="quitarPorNombre('${escapar(nombre)}')">✕ Quitar</button>
-        ${fotoBtn}`;
-    }
-  }
-}
-
-function cambiarCantidad(nombre, delta) {
-  const item = lista.find(i=>i.nombre===nombre);
-  if (!item) return;
-  item.cantidad = Math.max(1, (item.cantidad || 1) + delta);
-  // Actualizar solo el número — sin mover la pantalla
-  const span = document.getElementById(`qty-${escapar(nombre)}`);
-  if (span) span.textContent = item.cantidad;
-  actualizarUI();
-}
-
-function quitarPorNombre(nombre) {
-  const idx = lista.findIndex(i=>i.nombre===nombre);
-  if (idx === -1) return;
-  lista.splice(idx, 1);
-  actualizarUI();
-  renderDrawer();
-  // Restaurar botón "+ Agregar" sin re-renderizar la pantalla
-  const card = document.getElementById(`prod-${escapar(nombre)}`);
-  if (card) {
-    const acciones = card.querySelector('.prod-actions');
-    if (acciones) {
-      const fotoBtn = acciones.querySelector('.btn-foto')?.outerHTML || '';
-      const catN = catActual?.nombre || '';
-      const subN = subActual?.nombre || '';
-      acciones.innerHTML = `
-        <button class="btn-add" onclick="agregarALista('${escapar(nombre)}','${escapar(catN)}','${escapar(subN)}',this)">+ Agregar</button>
-        ${fotoBtn}`;
+    const acc = card.querySelector('.prod-actions');
+    if (acc) {
+      const foto = acc.querySelector('.btn-foto')?.outerHTML||'';
+      acc.innerHTML = `<div class="qty-sel"><button class="qty-btn" onclick="cambiarCant('${escapar(nombre)}',-1)">−</button><span class="qty-val" id="qv-${escapar(nombre)}">1</span><button class="qty-btn" onclick="cambiarCant('${escapar(nombre)}',1)">+</button></div><button class="btn-add" style="background:var(--bg3);color:var(--texto-dim);font-size:11px" onclick="quitarNombre('${escapar(nombre)}')">✕ Quitar</button>${foto}`;
     }
   }
 }
 
 function quitarDeLista(i) {
-  const nombreQuitado = lista[i]?.nombre;
+  const nombre = lista[i]?.nombre;
+  const catN   = lista[i]?.cat||'';
+  const subN   = lista[i]?.sub||'';
   lista.splice(i,1);
   actualizarUI();
   renderDrawer();
-  // Actualizar solo el botón del producto quitado — SIN re-renderizar toda la pantalla
-  if (nombreQuitado) {
-    const card = document.getElementById(`prod-${escapar(nombreQuitado)}`);
-    if (card) {
-      const btnArea = card.querySelector('.prod-actions');
-      if (btnArea) {
-        // Restaurar botón "+ Agregar" sin mover la pantalla
-        const cat = catActual?.nombre || '';
-        const sub = subActual?.nombre || '';
-        const btnAnterior = btnArea.querySelector('.btn-add');
-        if (btnAnterior) {
-          btnAnterior.textContent = '+ Agregar';
-          btnAnterior.disabled = false;
-          btnAnterior.onclick = function() { agregarALista(nombreQuitado, cat, sub, this); };
-        }
-      }
+  // Restaurar botón sin re-renderizar la pantalla
+  const card = document.getElementById('prod-'+escapar(nombre));
+  if (card) {
+    const acc = card.querySelector('.prod-actions');
+    if (acc) {
+      const foto = acc.querySelector('.btn-foto')?.outerHTML||'';
+      acc.innerHTML = `<button class="btn-add" onclick="agregarALista('${escapar(nombre)}','${escapar(catN)}','${escapar(subN)}',this)">+ Agregar</button>${foto}`;
     }
   }
 }
@@ -600,35 +545,18 @@ function renderDrawer() {
   cont.innerHTML = lista.map((item,i) => `
     <div class="lista-item-row">
       <div style="flex:1">
-        <div class="li-nombre">${item.nombre}</div>
+        <div class="li-nombre">${item.nombre}${(item.cantidad||1)>1?' × '+item.cantidad:''}</div>
         <div class="li-cat">${item.cat} › ${item.sub}</div>
       </div>
-      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-        <div class="qty-sel" style="border-color:var(--borde)">
-          <button class="qty-btn" style="width:26px;height:26px;font-size:15px" onclick="cambiarCantidadDrawer(${i},-1)">−</button>
-          <span class="qty-val" style="min-width:24px;font-size:12px">${item.cantidad||1}</span>
-          <button class="qty-btn" style="width:26px;height:26px;font-size:15px" onclick="cambiarCantidadDrawer(${i},1)">+</button>
-        </div>
-        <button class="li-del" onclick="quitarDeLista(${i})">×</button>
-      </div>
+      <button class="li-del" onclick="quitarDeLista(${i})">×</button>
     </div>`).join('');
-}
-
-function cambiarCantidadDrawer(i, delta) {
-  if (!lista[i]) return;
-  lista[i].cantidad = Math.max(1, (lista[i].cantidad || 1) + delta);
-  // Actualizar también el selector en la tarjeta del producto si está visible
-  const span = document.getElementById(`qty-${escapar(lista[i].nombre)}`);
-  if (span) span.textContent = lista[i].cantidad;
-  actualizarUI();
 }
 
 function actualizarBtnWA() {
   if (lista.length===0) return;
-  const lineas = lista.map(i=>`• ${i.nombre}${(i.cantidad||1)>1 ? ` × ${i.cantidad}` : ''} (${i.cat})`).join('\n');
+  const lineas = lista.map(i=>`• ${i.nombre}${(i.cantidad||1)>1?' × '+i.cantidad:''} (${i.cat})`).join('\n');
   const msg = encodeURIComponent(`Hola, armé mi lista con el catálogo de El Buen Poll:\n\n${lineas}\n\n¿Me confirma precio y disponibilidad? Gracias.`);
-  // Guardar URL en variable global — el botón es <button>, no <a>
-  window._waUrl = `https://wa.me/${WA_NUMERO}?text=${msg}`;
+  document.getElementById('btnWALista').href = `https://wa.me/${WA_NUMERO}?text=${msg}`;
 }
 
 function toggleDrawer() {
@@ -682,27 +610,23 @@ async function iniciar() {
 }
 
 // ══════════════════════════════════════════
-//  BUSCADOR INTERNO
+//  BUSCADOR
 // ══════════════════════════════════════════
 let _busTimer = null;
 let _enBusqueda = false;
 
 function normTxt(t) {
-  return (t||'').toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-    .replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
+  return (t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
 }
-
 function onBuscar(q) {
   clearTimeout(_busTimer);
-  document.getElementById('btnClearSearch').classList.toggle('visible', q.length > 0);
+  document.getElementById('srchClear').classList.toggle('visible', q.length > 0);
   if (!q.trim()) { limpiarBusqueda(); return; }
-  _busTimer = setTimeout(() => ejecutarBusqueda(q), 300);
+  _busTimer = setTimeout(() => buscar(q), 300);
 }
-
 function limpiarBusqueda() {
-  document.getElementById('searchInput').value = '';
-  document.getElementById('btnClearSearch').classList.remove('visible');
+  document.getElementById('srchInput').value = '';
+  document.getElementById('srchClear').classList.remove('visible');
   if (_enBusqueda) {
     _enBusqueda = false;
     if (subActual) renderProductos(catActual.nombre, subActual.nombre);
@@ -710,132 +634,100 @@ function limpiarBusqueda() {
     else renderCategorias();
   }
 }
-
-function ejecutarBusqueda(q) {
+function buscar(q) {
   _enBusqueda = true;
   const qn = normTxt(q);
-  const resultados = [];
-  for (const cat of catalogo) {
-    for (const sub of cat.subcats) {
-      for (const prod of sub.productos) {
-        if (normTxt(prod.nombre).includes(qn) || normTxt(prod.descripcion).includes(qn)) {
-          resultados.push({ prod, cat, sub });
-        }
-      }
-    }
-  }
+  const res = [];
+  for (const cat of catalogo)
+    for (const sub of cat.subcats)
+      for (const p of sub.productos)
+        if (normTxt(p.nombre).includes(qn) || normTxt(p.descripcion).includes(qn))
+          res.push({p, cat, sub});
+
   const main = document.getElementById('mainContent');
-  if (resultados.length === 0) {
-    main.innerHTML = `
-      <div class="search-empty">
-        <span class="se-ico">🔍</span>
-        <p>No encontramos "<strong>${q}</strong>" en el catálogo.<br>
-        ¿Quieres consultar al vendedor directamente?</p>
-      </div>${renderCTA()}`;
+  if (!res.length) {
+    main.innerHTML = `<div style="text-align:center;padding:40px 20px;color:var(--texto-dim)"><div style="font-size:40px;opacity:.3;margin-bottom:12px">🔍</div><p>Sin resultados para "<strong>${q}</strong>"</p></div>${renderCTA()}`;
     return;
   }
-  const prodsHTML = resultados.map(({prod, cat}) => {
-    const enLista = lista.find(i=>i.nombre===prod.nombre);
-    const fotoBtn = prod.foto ? `<button class="btn-foto" onclick="verFoto('${escapar(prod.foto)}','${escapar(prod.nombre)}')">🖼️ Ver foto</button>` : '';
-    const addBtn  = prod.agotado
+  const html = res.map(({p, cat}) => {
+    const enLista = lista.find(i=>i.nombre===p.nombre);
+    const fotoBtn = p.foto ? `<button class="btn-foto" onclick="verFoto('${escapar(p.foto)}','${escapar(p.nombre)}')">🖼️ Ver foto</button>` : '';
+    const qty = enLista?.cantidad || 1;
+    const addBtn = p.agotado
       ? `<button class="btn-add" disabled>Sin stock</button>`
       : enLista
-        ? `<button class="btn-add" disabled>✓ En lista</button>`
-        : `<button class="btn-add" onclick="agregarALista('${escapar(prod.nombre)}','${escapar(cat.nombre)}','',this)">+ Agregar</button>`;
-    return `
-      <div class="prod-card ${prod.agotado?'agotado':''}" id="prod-${escapar(prod.nombre)}">
-        <div class="prod-main">
-          <div class="prod-foto-wrap">
-            ${prod.foto
-              ? `<img src="${IMGS_BASE}${prod.foto}" alt="${prod.nombre}" onerror="this.parentElement.innerHTML='<span class=prod-foto-placeholder>${cat.icono}</span>'">`
-              : `<span class="prod-foto-placeholder">${cat.icono}</span>`}
-          </div>
-          <div class="prod-info">
-            <div class="prod-nombre">${prod.nombre}</div>
-            <div class="prod-desc" style="font-size:11px;color:var(--texto-dim)">${cat.nombre}</div>
-            <div class="prod-desc">${prod.descripcion}</div>
-            ${prod.agotado ? '<div class="prod-agotado-tag">⚠️ Sin stock</div>' : '<div class="prod-precio">Precio: confirmar con vendedor</div>'}
-          </div>
-        </div>
-        <div class="prod-actions">${addBtn} ${fotoBtn}</div>
-      </div>`;
+        ? `<div class="qty-sel"><button class="qty-btn" onclick="cambiarCant('${escapar(p.nombre)}',-1)">−</button><span class="qty-val" id="qv-${escapar(p.nombre)}">${qty}</span><button class="qty-btn" onclick="cambiarCant('${escapar(p.nombre)}',1)">+</button></div><button class="btn-add" style="background:var(--bg3);color:var(--texto-dim);font-size:11px" onclick="quitarNombre('${escapar(p.nombre)}')">✕</button>`
+        : `<button class="btn-add" onclick="agregarALista('${escapar(p.nombre)}','${escapar(cat.nombre)}','',this)">+ Agregar</button>`;
+    return `<div class="prod-card ${p.agotado?'agotado':''}" id="prod-${escapar(p.nombre)}">
+      <div class="prod-main">
+        <div class="prod-foto-wrap">${p.foto?`<img src="${IMGS_BASE}${p.foto}" alt="${p.nombre}" onerror="this.parentElement.innerHTML='<span class=prod-foto-placeholder>${cat.icono}</span>'">`:`<span class="prod-foto-placeholder">${cat.icono}</span>`}</div>
+        <div class="prod-info"><div class="prod-nombre">${p.nombre}</div><div class="prod-desc" style="font-size:10px;color:var(--dorado)">${cat.nombre}</div><div class="prod-desc">${p.descripcion}</div><div class="prod-precio">Confirmar precio con vendedor</div></div>
+      </div>
+      <div class="prod-actions">${addBtn} ${fotoBtn}</div>
+    </div>`;
   }).join('');
-  main.innerHTML = `
-    <div class="section-label" style="margin-bottom:12px">${resultados.length} resultado${resultados.length!==1?'s':''} para "<strong>${q}</strong>"</div>
-    <div class="search-results-grid">${prodsHTML}</div>
-    ${renderCTA()}`;
+  main.innerHTML = `<div class="section-label" style="margin-bottom:12px">${res.length} resultado${res.length!==1?'s':''} para "<strong>${q}</strong>"</div><div style="display:flex;flex-direction:column;gap:10px">${html}</div>${renderCTA()}`;
 }
 
 // ══════════════════════════════════════════
-//  FOLIO + GUARDAR EN TRACKER
+//  CANTIDAD
 // ══════════════════════════════════════════
-function generarFolio() {
+function cambiarCant(nombre, delta) {
+  const item = lista.find(i=>i.nombre===nombre);
+  if (!item) return;
+  item.cantidad = Math.max(1, (item.cantidad||1) + delta);
+  const sp = document.getElementById('qv-'+escapar(nombre));
+  if (sp) sp.textContent = item.cantidad;
+  actualizarUI();
+}
+function quitarNombre(nombre) {
+  const idx = lista.findIndex(i=>i.nombre===nombre);
+  if (idx === -1) return;
+  const catN = catActual?.nombre||'', subN = subActual?.nombre||'';
+  lista.splice(idx,1);
+  actualizarUI();
+  renderDrawer();
+  const card = document.getElementById('prod-'+escapar(nombre));
+  if (card) {
+    const acc = card.querySelector('.prod-actions');
+    if (acc) {
+      const foto = acc.querySelector('.btn-foto')?.outerHTML||'';
+      acc.innerHTML = `<button class="btn-add" onclick="agregarALista('${escapar(nombre)}','${escapar(catN)}','${escapar(subN)}',this)">+ Agregar</button>${foto}`;
+    }
+  }
+}
+
+// ══════════════════════════════════════════
+//  GUARDAR EN TRACKER (localStorage)
+// ══════════════════════════════════════════
+function guardarEnTracker() {
+  if (lista.length === 0) return;
   const n = new Date();
   const dd  = String(n.getDate()).padStart(2,'0');
   const mm  = String(n.getMonth()+1).padStart(2,'0');
-  const aa  = String(n.getFullYear()).slice(-2);
   const hh  = String(n.getHours()).padStart(2,'0');
   const min = String(n.getMinutes()).padStart(2,'0');
-  return `BP-${dd}${mm}${aa}-${hh}${min}`;
-}
-
-function guardarPedidoEnTracker() {
-  if (lista.length === 0) return;
-  const folio = generarFolio();
+  const folio = `BP${dd}${mm}PED${hh}${min}`;
 
   const pedido = {
-    id:      Date.now().toString(),
+    id:     Date.now().toString(),
     folio,
-    fecha:   new Date().toLocaleDateString('es-MX', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
-    cliente: '(cliente del Asesor IA)',
-    tel:     '',
-    canal:   'Asesor IA',
-    notas:   '',
-    estado:  'pendiente',
-    items:   lista.map(i => ({ nombre: i.nombre, categoria: i.cat, cantidad: i.cantidad || 1 })),
+    fecha:  n.toLocaleDateString('es-MX',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+    cliente:'(cliente del Asesor IA)',
+    canal:  'Asesor IA',
+    estado: 'pendiente',
+    items:  lista.map(i=>({nombre:i.nombre,categoria:i.cat,cantidad:i.cantidad||1})),
   };
-
-  // Guardar en localStorage
   let pedidos = [];
-  try { pedidos = JSON.parse(localStorage.getItem('buenpoll_pedidos') || '[]'); } catch(e) {}
+  try { pedidos = JSON.parse(localStorage.getItem('buenpoll_pedidos')||'[]'); } catch(e) {}
   pedidos.push(pedido);
   localStorage.setItem('buenpoll_pedidos', JSON.stringify(pedidos));
-  window._ultimoPedido = pedido;
-
-  // Preparar nombre y mensaje
-  const n    = new Date();
-  const dd   = String(n.getDate()).padStart(2,'0');
-  const mm2  = String(n.getMonth()+1).padStart(2,'0');
-  const hh   = String(n.getHours()).padStart(2,'0');
-  const min  = String(n.getMinutes()).padStart(2,'0');
-  const nombreArchivo = `BP${dd}${mm2}PED${hh}${min}.json`;
-  const jsonStr  = JSON.stringify(pedido, null, 2);
-  const lineas   = lista.map(i=>`• ${i.nombre}${(i.cantidad||1)>1?` × ${i.cantidad}`:''} (${i.cat})`).join('\n');
-  const mensajeWA = `🛒 *PEDIDO ${folio}*\n*Botánica El Buen Poll*\n\n*Mi lista:*\n${lineas}\n\n¿Me confirma precio y disponibilidad? Gracias.`;
-
-  // Web Share API — abre menú nativo del teléfono, archivo + mensaje van juntos a WhatsApp
-  const archivo = new File([jsonStr], nombreArchivo, { type: 'application/json' });
-  if (navigator.share && navigator.canShare && navigator.canShare({ files: [archivo] })) {
-    navigator.share({
-      files: [archivo],
-      text:  mensajeWA,
-    }).catch(e => {
-      // Si el usuario canceló el share, no hacer nada
-      if (e.name !== 'AbortError') console.warn('Share error:', e);
-    });
-  } else {
-    // Fallback para desktop o browsers sin soporte: abrir WA + descargar archivo
-    const waUrl = `https://wa.me/${WA_NUMERO}?text=${encodeURIComponent(mensajeWA)}`;
-    window.open(waUrl, '_blank');
-    const blob = new Blob([jsonStr], { type: 'application/json' });
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    a.href = url; a.download = nombreArchivo;
-    document.body.appendChild(a); a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }
+  // Actualizar también el texto del mensaje WA con folio y cantidades
+  const lineas = lista.map(i=>`• ${i.nombre}${(i.cantidad||1)>1?' × '+i.cantidad:''} (${i.cat})`).join('\n');
+  const msg = encodeURIComponent(`🛒 *PEDIDO ${folio}*\n*Botánica El Buen Poll*\n\n*Mi lista:*\n${lineas}\n\n¿Me confirma precio y disponibilidad? Gracias.`);
+  document.getElementById('btnWALista').href = `https://wa.me/${WA_NUMERO}?text=${msg}`;
 }
+
 
 iniciar();
 </script>
