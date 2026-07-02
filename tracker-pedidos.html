@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Pedidos — El Buen Pollo</title>
+<title>Pedidos — El Buen Poll</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -82,6 +82,21 @@ body {
   cursor: pointer;
   white-space: nowrap;
 }
+
+.btn-importar {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background .15s;
+  line-height: 1;
+}
+.btn-importar:hover { background: rgba(255,255,255,0.25); }
 
 /* FILTROS */
 .filtros {
@@ -325,10 +340,14 @@ textarea.form-input { resize: vertical; min-height: 70px; line-height: 1.6; }
       <div class="ico">🐓</div>
       <div>
         <span class="titulo">Pedidos</span>
-        <span class="sub">El Buen Pollo · Vendedor</span>
+        <span class="sub">El Buen Poll · Vendedor</span>
       </div>
     </div>
     <button class="btn-nuevo" onclick="abrirModal()">+ Manual</button>
+    <label class="btn-importar" title="Importar pedido JSON">
+      📥
+      <input type="file" accept=".json" onchange="importarPedido(this)" style="display:none">
+    </label>
   </div>
   <div class="filtros">
     <button class="filtro-btn active" onclick="filtrar('todos',this)">📋 Todos</button>
@@ -404,7 +423,7 @@ textarea.form-input { resize: vertical; min-height: 70px; line-height: 1.6; }
 //  CONFIG
 // ══════════════════════════════════════════
 const WA_VEND    = "525516478491";
-const NEGOCIO    = "Botánica El Buen Pollo";
+const NEGOCIO    = "Botánica El Buen Poll";
 const STORAGE    = "buenpoll_pedidos";   // ← misma key que el asesor index.html
 const SEEN_KEY   = "buenpoll_vistos";    // para detectar pedidos nuevos
 
@@ -562,7 +581,8 @@ function enviarWA(id) {
     (p.notas ? `\n\n📝 ${p.notas}` : '') +
     (p.estado==='pendiente' ? `\n\n━━━━━━━━━━━━━━━\nPara confirmar entrega:\n✅ ENTREGADO ${p.folio}` : '') +
     `\n\n_${NEGOCIO} · MAGNETIA_`;
-  window.open(`https://wa.me/${WA_VEND}?text=${encodeURIComponent(msg)}`, '_blank');
+  // whatsapp:// abre la app directo sin página intermedia de instalación
+  window.location.href = `whatsapp://send?phone=${WA_VEND}&text=${encodeURIComponent(msg)}`;
 }
 
 function filtrar(estado, btn) {
@@ -661,6 +681,51 @@ function recargarDesdeStorage() {
     render();
     detectarNuevos();
   }
+}
+
+// ══════════════════════════════════════════
+//  IMPORTAR PEDIDO DESDE ARCHIVO JSON
+// ══════════════════════════════════════════
+function importarPedido(input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const pedido = JSON.parse(e.target.result);
+
+      // Validar que sea un pedido válido
+      if (!pedido.folio || !pedido.items) {
+        toast('⚠️ Archivo no válido — no es un pedido de El Buen Poll');
+        input.value = '';
+        return;
+      }
+
+      // Verificar si ya existe este folio
+      if (pedidos.find(p => p.folio === pedido.folio)) {
+        toast(`ℹ️ El pedido ${pedido.folio} ya está en el tracker`);
+        input.value = '';
+        return;
+      }
+
+      // Asegurarse de que el estado sea pendiente al importar
+      pedido.estado = pedido.estado || 'pendiente';
+      pedido.canal  = pedido.canal  || 'Asesor IA';
+
+      pedidos.push(pedido);
+      guardar();
+      render();
+      toast(`✅ Pedido ${pedido.folio} importado correctamente`);
+
+    } catch(err) {
+      toast('⚠️ Error al leer el archivo — verifica que sea un JSON válido');
+    }
+    // Limpiar el input para permitir importar el mismo archivo de nuevo
+    input.value = '';
+  };
+
+  reader.readAsText(file);
 }
 
 // ══════════════════════════════════════════
