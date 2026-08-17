@@ -1,4 +1,4 @@
-# CATÁLOGO — Botánica El Buen Poll
+# CATÁLOGO — Botánica El Buen Pollo
 # Mercado de Sonora, Local 294, CDMX
 #
 # INSTRUCCIONES PARA EDITAR:
