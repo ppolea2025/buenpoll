@@ -14,7 +14,10 @@
     },
     {
       "source": "/(.*).md",
-      "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" },
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" }
+      ]
     },
     {
       "source": "/imgs/(.*)",
