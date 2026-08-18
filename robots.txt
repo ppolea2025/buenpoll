@@ -1,0 +1,7 @@
+# Botanica El Buen Pollo — Mercado de Sonora, CDMX
+# Rastreo abierto para buscadores y crawlers de IA.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://buenpoll-z2ve.vercel.app/sitemap.xml
